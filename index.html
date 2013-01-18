@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My First Canvace Game</title>
+        <script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="Libraries/canvace.js"></script>
+        <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        html {
+            display: table;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #container {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #container > * {
+            display: block;
+            margin: auto;
+        }
+
+        #container > canvas {
+            border: 2px solid black;
+            background: url('Background.png');
+        }
+
+        #container > div {
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            top: 100%;
+        }
+        </style>
+    </head>
+    <body>
+
+        <div id="container">
+            <canvas id="canvas" width="800" height="600"></canvas>
+            <div id="ringraziamenti">Sviluppato da Mindigno</div>
+        </div>
+
+        <script type="text/javascript" src="Source/Nuvola.js"></script>
+        <script type="text/javascript" src="Source/Iena.js"></script>
+        <script type="text/javascript" src="Source/Cameraman.js"></script>
+        <script type="text/javascript" src="Source/Personaggio.js"></script>
+        <script type="text/javascript" src="Source/Game.js"></script>
+    </body>
+</html>
