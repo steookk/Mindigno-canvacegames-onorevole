@@ -1,7 +1,14 @@
 $.getJSON('Barbareschi.json', function (response) {
     var loader = new Canvace.Loader('Media');
 
+    loader.onProgress(function(progress) {
+
+        $('#progress').css('width', (progress/100)*299);
+    });
+
     loader.onComplete(function () {
+
+        loader.playSound("Intro");
 
         //Riga di codice per rimediare al funzionamento su tutti i browser
         Canvace.RenderLoop.setLoop('interval');
@@ -187,14 +194,23 @@ $.getJSON('Barbareschi.json', function (response) {
             }
         });
 
-        //Lancio l'esecuzione
-        loop.run();
-        //Avvio la riproduzione del suono di inizio.
-        loader.playSound("RaggiungiamoInSicilia");
+        $('#play').on('click', function() {
+            $('#menu').hide();
+
+            //Lancio l'esecuzione
+            loop.run();
+
+            //Avvio la riproduzione del suono di inizio.
+            loader.playSound("RaggiungiamoInSicilia");
+        });
+        $('#batteria,#play').toggle();
+
     });
     
     //Definisco le chiavi per richiamare i suoni.
     loader.loadAssets(response, {
+
+        "Intro:": ["Sounds/Intro.ogg", "Sounds/Intro.mp3"],
         "RaggiungiamoInSicilia": ["Sounds/Iena/RaggiungiamoInSicilia.ogg", "Sounds/Iena/RaggiungiamoInSicilia.mp3"],
         "Fine": ["Sounds/Fine.ogg", "Sounds/Fine.mp3"],
 
