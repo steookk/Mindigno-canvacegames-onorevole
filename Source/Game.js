@@ -178,6 +178,15 @@ $.getJSON('Barbareschi.json', function (response) {
         });
         //
 
+        //Non funziona su alcuni browser come Safari.
+        Canvace.onVisibilityChange(function(hidden) {
+            if (hidden) {
+                loop.suspend();
+            } else {
+                loop.run();
+            }
+        });
+
         //Lancio l'esecuzione
         loop.run();
         //Avvio la riproduzione del suono di inizio.
