@@ -148,8 +148,9 @@ $(function () {
                     loader.playSound("Fine");
                     personaggio.vincita();
 
-                    $('#ringraziamenti').animate({
-                        top: 100
+                    var element = $('#ringraziamenti');
+                    element.animate({
+                        top: (element.parent().height() - element.height()) / 2
                     });
 
                     giocoFinito = true;
