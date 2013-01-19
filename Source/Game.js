@@ -1,14 +1,18 @@
 $(function () {
-    var canvas = $('#canvas').get(0);
+    var adaptCanvasSize = (function (initialWidth, initialHeight) {
+        var container = $('#container');
 
-    var adaptCanvasSize = function () {
-        var ratio = Math.min(
-            window.innerWidth / canvas.width,
-            window.innerHeight / canvas.height);
+        return function () {
+            var ratio = Math.min(
+                window.innerWidth / initialWidth,
+                window.innerHeight / initialHeight);
 
-        canvas.style.width = ~~(ratio * canvas.width) + 'px';
-        canvas.style.height = ~~(ratio * canvas.height) + 'px';
-    };
+            container.css({
+                width: ~~(ratio * initialWidth),
+                height: ~~(ratio * initialHeight)
+            });
+        };
+    })(800, 600);
 
     if (Canvace.mobileBrowser) {
         window.addEventListener('resize', adaptCanvasSize, false);
