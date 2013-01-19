@@ -20,9 +20,11 @@ html,body {
 			<div id="ringraziamenti" style="position:absolute;width:100%;left:0px;top:100%">Sviluppato da Mindigno</div>
 			<div id="menu" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:url('Menu/Layer.png')">
 				<div style="position:relative;left:0px;top:33%;text-align:center">
-					<span id="batteria">
-						<img src="Menu/Batteria.png" alt="Caricamento..."/>
-					</span>
+					<div id="batteria" style="display:inline;position:relative;left:0px;top:0px">
+						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url('Menu/Batteria.png') no-repeat">
+							<div id="progress" style="position:absolute;left:2px;top:2px;width:299px;height:56px;background:#FDC613;border-radius:3px"></div>
+						</div>
+					</div>
 					<img id="play" src="Menu/Play.png" alt="Gioca!" style="display:none"/>
 				</div>
 				<div style="position:absolute;width:100%;left:-50px;bottom:0px;margin:50px;text-align:center">
