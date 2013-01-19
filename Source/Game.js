@@ -109,6 +109,7 @@ $(function () {
             //
 
             var giocoFinito = false;
+            var giocoIniziato = false;
             var attack = (function () {
 
                 var counter = 0;
@@ -275,15 +276,19 @@ $(function () {
             //
 
             //Non funziona su alcuni browser come Safari.
-            Canvace.onVisibilityChange(function(hidden) {
-                if (hidden) {
-                    loop.suspend();
-                } else {
-                    loop.run();
+            Canvace.onVisibilityChange(function (hidden) {
+                if (giocoIniziato) {
+                    if (hidden) {
+                        loop.suspend();
+                    } else {
+                        loop.run();
+                    }
                 }
             });
 
             $('#play').on('click', function() {
+                giocoIniziato = true;
+
                 $('#menu').hide();
 
                 //Lancio l'esecuzione
