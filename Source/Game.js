@@ -139,10 +139,7 @@ $(function () {
                 };
             })();
 
-            keyboard.onKeyDown(KeyEvent.DOM_VK_SPACE, attack);
-
-            keyboard.onKeyUp(KeyEvent.DOM_VK_SPACE, function() {
-
+            var checkLife = function() {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
 
@@ -157,7 +154,10 @@ $(function () {
 
                     giocoFinito = true;
                 }
-            })
+            };
+
+            keyboard.onKeyDown(KeyEvent.DOM_VK_SPACE, attack);
+            keyboard.onKeyUp(KeyEvent.DOM_VK_SPACE, checkLife);
 
             //
 
@@ -173,21 +173,8 @@ $(function () {
 
             //
 
-            var makeTouchHandler = function () {
+            canvas.addEventListener('touchstart', (function (left, center, right) {
                 var slices = 5;
-
-                if (arguments.length === 1) {
-                    var callback = arguments[0];
-
-                    return function (event) {
-                        if (typeof callback === 'function') {
-                            callback();
-                        }
-
-                        event.preventDefault();
-                        return false;
-                    };
-                }
 
                 var left = arguments[0];
                 var center = arguments[1];
@@ -203,26 +190,18 @@ $(function () {
                         var touchX = touches.item(i).clientX - rect.left;
 
                         if (touchX < (width / slices)) {
-                            if (typeof left === 'function') {
-                                left();
-                            }
+                            left();
                         } else if (touchX < (slices - 1) * (width / slices)) {
-                            if (typeof center === 'function') {
-                                center();
-                            }
+                            center();
                         } else {
-                            if (typeof right === 'function') {
-                                right();
-                            }
+                            right();
                         }
                     }
 
                     event.preventDefault();
                     return false;
                 };
-            };
-
-            canvas.addEventListener('touchstart', makeTouchHandler(function () {
+            })(function () {
                 personaggio.goLeft();
             }, function () {
                 attack();
@@ -230,7 +209,7 @@ $(function () {
                 personaggio.goRight();
             }), false);
 
-            canvas.addEventListener('touchend', makeTouchHandler(function () {
+            canvas.addEventListener('touchend', function (event) {
                 var attackingStates = [
                     Personaggio.states.attacco_pugno_verso_sx,
                     Personaggio.states.attacco_pugno_verso_dx,
@@ -241,7 +220,12 @@ $(function () {
                 if (-1 === attackingStates.indexOf(personaggio.getState())) {
                     personaggio.stayNormal();
                 }
-            }), false);
+
+                checkLife();
+
+                event.preventDefault();
+                return false;
+            }, false);
 
             //
 
