@@ -21,6 +21,11 @@ $(function () {
         adaptCanvasSize();
     }
 
+    (function (ignored) {
+        $('#canvas').on(ignored, false);
+        $(document.body).on(ignored, false);
+    })('gesturestart gesturemove gestureend contextmenu');
+
     $.getJSON('Barbareschi.json', function (response) {
         var loader = new Canvace.Loader('Media');
 
