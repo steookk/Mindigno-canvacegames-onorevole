@@ -1,23 +1,23 @@
-/*! Canvace Client Library - v0.2.5 - 2013-01-10
+/*! Canvace Client Library - v0.2.5 - 2013-01-19
 * http://www.canvace.com/
 * Copyright (c) 2013 Canvace Srl */
 
 var Canvace = (function () {
-"use strict";
-var Canvace = {};
+	'use strict';
+	var Canvace = {};
 
 
-if (typeof Array.prototype.forEach !== "function") {
+if (typeof Array.prototype.forEach !== 'function') {
 	Array.prototype.forEach = function (fn, scope) {
-		for (var i = 0, len = this.length; i < len; ++i) {
+		for (var i = 0, length = this.length; i < length; ++i) {
 			fn.call(scope, this[i], i, this);
 		}
 	};
 }
 
-if (typeof Array.isArray !== "function") {
+if (typeof Array.isArray !== 'function') {
 	Array.isArray = function (arg) {
-		return (Object.prototype.toString.call(arg) === "[object Array]");
+		return (Object.prototype.toString.call(arg) === '[object Array]');
 	};
 }
 
@@ -29,7 +29,7 @@ if (typeof Array.isArray !== "function") {
  * @static
  */
 Canvace.Polyfill = (function () {
-	var prefixes = ["webkit", "moz", "ms", "o"];
+	var prefixes = ['webkit', 'moz', 'ms', 'o'];
 
 	var getSinglePrefixedProperty = function (object, name) {
 		var capitalName = name.charAt(0).toUpperCase() + name.substr(1);
@@ -51,11 +51,11 @@ Canvace.Polyfill = (function () {
 		 *
 		 * @example
 		 *	// Get a prefixed property from the `window` object.
-		 *	var requestAnimationFrame = Canvace.Polyfill.getPrefixedProperty("requestAnimationFrame");
-		 *	
+		 *	var requestAnimationFrame = Canvace.Polyfill.getPrefixedProperty('requestAnimationFrame');
+		 *
 		 *	// Get a prefixed property from a DOM element.
-		 *	var canvas = document.getElementById("canvas");
-		 *	var requestFullscreen = Canvace.Polyfill.getPrefixedProperty(canvas, ["requestFullscreen", "requestFullScreen"]);
+		 *	var canvas = document.getElementById('canvas');
+		 *	var requestFullscreen = Canvace.Polyfill.getPrefixedProperty(canvas, ['requestFullscreen', 'requestFullScreen']);
 		 *
 		 * @method getPrefixedProperty
 		 * @param [object] {Object} An optional reference to the object holding
@@ -79,6 +79,29 @@ Canvace.Polyfill = (function () {
 		}
 	};
 })();
+
+Canvace.Timing = {
+	/**
+	 * This method returns a timestamp using `window.performance.now()`, if
+	 * available, or `Date.now()` otherwise.
+	 *
+	 * @method now
+	 * @return {Number} A number indicating a timestamp in milliseconds.
+	 */
+	now: (function () {
+		if (!!window.performance) {
+			var now = Canvace.Polyfill.getPrefixedProperty(window.performance, 'now');
+			if (!!now) {
+				return function () {
+					return now.call(window.performance);
+				};
+			}
+		}
+		return function () {
+			return Date.now();
+		};
+	})()
+};
 
 Canvace.MultiSet = function () {
 	var elements = {};
@@ -663,7 +686,7 @@ Canvace.Heap = function (compare, same) {
 	function find(element, index, callback) {
 		if (index < heap.length) {
 			if (same(element, heap[index])) {
-				if (typeof callback === "function") {
+				if (typeof callback === 'function') {
 					callback(index);
 				}
 				return true;
@@ -766,7 +789,7 @@ Canvace.Heap = function (compare, same) {
 	 * The return value is defined _only_ if the element is found, otherwise
 	 * this method does not return anything. You can test whether an element was
 	 * found or not using the `typeof` operator and checking against the string
-	 * `"undefined"`, as in the following example:
+	 * `'undefined'`, as in the following example:
 	 *
 	 *	var result = heap.find(...);
 	 *	if (typeof result !== 'undefined') {
@@ -1069,10 +1092,13 @@ Canvace.Astar = function (epsilon) {
 	 * optimal one, where `epsilon` is the parameter specified to the `Astar`
 	 * constructor.
 	 *
-	 * The `startNode` and `targetNode` are `Astar.Node`-like objects
-	 * representing the first and last node of the path to find, respectively;
-	 * `Astar.Node`-like means they have to provide the same properties and
-	 * methods described by the documentation of the `Astar.Node` pseudo-class.
+	 * `startNode` is an `Astar.Node`-like object representing the first node of
+	 * the path to find, respectively; `Astar.Node`-like means it has to provide
+	 * the same properties and methods described by the documentation of the
+	 * `Astar.Node` pseudo-class.
+	 *
+	 * The target node is identified when the estimated distance from it,
+	 * provided by each node, is zero; the algorithm stops when this happens.
 	 *
 	 * `Astar.Node` objects allow to specify a directed graph with weighted and
 	 * labeled edges. Edge weights are real numbers and are used to compute the
@@ -1086,11 +1112,10 @@ Canvace.Astar = function (epsilon) {
 	 * @method findPath
 	 * @for Canvace.Astar
 	 * @param startNode {Canvace.Astar.Node} The starting node.
-	 * @param targetNode {Canvace.Astar.Node} The node to reach.
 	 * @return {String[]} An array of edge labels that identify the edges that
 	 * form the computed path, or `null` if no path can be found.
 	 */
-	this.findPath = function (startNode, targetNode) {
+	this.findPath = function (startNode) {
 		var closedSet = {};
 		var openScore = {};
 		var backLink = {};
@@ -1158,9 +1183,11 @@ Canvace.Astar = function (epsilon) {
 	};
 };
 
-Canvace.mobileBrowser = (function(a){return(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)));})(navigator.userAgent||navigator.vendor||window.opera);
+Canvace.mobileBrowser = (function (a) {
+	return (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4)));
+})(navigator.userAgent || navigator.vendor || window.opera);
 
-if (typeof window.KeyEvent === "undefined") {
+if (typeof window.KeyEvent === 'undefined') {
 	window.KeyEvent = {
 		DOM_VK_CANCEL: 3,
 		DOM_VK_HELP: 6,
@@ -1344,7 +1371,7 @@ Canvace.Keyboard = function (element, preventDefaultActions) {
 			if (!(keyCode in handlers)) {
 				handlers[keyCode] = new Canvace.MultiSet();
 			}
-			return handlers[keyCode].add(handler);
+			return handlers[keyCode].add(handler || function () {});
 		}
 		this.register = function (keyCode, handler) {
 			if (typeof keyCode === 'number') {
@@ -1356,7 +1383,7 @@ Canvace.Keyboard = function (element, preventDefaultActions) {
 				}
 				return function () {
 					for (var i in removers) {
-						removers();
+						removers[i]();
 					}
 				};
 			}
@@ -1480,8 +1507,10 @@ Canvace.Keyboard = function (element, preventDefaultActions) {
 	 *
 	 * You can safely use DOM\_VK\_XXX codes from the `KeyEvent` global object:
 	 * Canvace normalizes it across browsers.
-	 * @param handler {Function} A user-defined function that gets called when
+	 * @param [handler] {Function} A user-defined function that gets called when
 	 * the event occurs. It receives one argument, the virtual key code.
+	 *
+	 * When not specified defaults to an empty function.
 	 * @return {Function} A function that unregisters the registered handler.
 	 *
 	 * The returned function does not receive any arguments and does not return
@@ -1514,8 +1543,10 @@ Canvace.Keyboard = function (element, preventDefaultActions) {
 	 *
 	 * You can safely use DOM\_VK\_XXX codes from the `KeyEvent` global object:
 	 * Canvace normalizes it across browsers.
-	 * @param handler {Function} A user-defined function that gets called when
+	 * @param [handler] {Function} A user-defined function that gets called when
 	 * the event occurs. It receives one argument, the virtual key code.
+	 *
+	 * When not specified defaults to an empty function.
 	 * @return {Function} A function that unregisters the registered handler.
 	 *
 	 * The returned function does not receive any arguments and does not return
@@ -1568,8 +1599,10 @@ Canvace.Keyboard = function (element, preventDefaultActions) {
 	 *
 	 * You can safely use DOM\_VK\_XXX codes from the `KeyEvent` global object:
 	 * Canvace normalizes it across browsers.
-	 * @param handler {Function} A user-defined function that gets called when
+	 * @param [handler] {Function} A user-defined function that gets called when
 	 * the event occurs. It receives one argument, the virtual key code.
+	 *
+	 * When not specified defaults to an empty function.
 	 * @return {Function} A function that unregisters the registered handler.
 	 *
 	 * The returned function does not receive any arguments and does not return
@@ -1624,7 +1657,7 @@ Canvace.Mouse = function (element) {
 		});
 	}, false);
 
-	if (typeof element.onwheel !== "undefined") {
+	if (typeof element.onwheel !== 'undefined') {
 		element.addEventListener('wheel', function (event) {
 			var x = event.clientX - element.style.left;
 			var y = event.clientY - element.style.top;
@@ -1632,7 +1665,7 @@ Canvace.Mouse = function (element) {
 				handler(x, y, -event.deltaX, -event.deltaY);
 			});
 		}, false);
-	} else if (typeof element.onmousewheel !== "undefined") {
+	} else if (typeof element.onmousewheel !== 'undefined') {
 		element.addEventListener('mousewheel', function (event) {
 			var x = event.clientX - element.style.left;
 			var y = event.clientY - element.style.top;
@@ -1811,7 +1844,7 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * @param callback {Function} The callback function.
 	 */
 	this.onProgress = function (callback) {
-		if (typeof callback === "function") {
+		if (typeof callback === 'function') {
 			loadProgress = callback;
 		}
 		return thisObject;
@@ -1826,7 +1859,7 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * @param callback {Function} The callback function.
 	 */
 	this.onComplete = function (callback) {
-		if (typeof callback === "function") {
+		if (typeof callback === 'function') {
 			loadComplete = callback;
 		}
 		return thisObject;
@@ -1840,7 +1873,7 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * @param callback {Function} The callback function.
 	 */
 	this.onError = function (callback) {
-		if (typeof callback === "function") {
+		if (typeof callback === 'function') {
 			loadError = callback;
 		}
 		return thisObject;
@@ -1900,8 +1933,8 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 		function batchImages(descriptor) {
 			var loadIt = function (id) {
 				var image = new Image();
-				image.addEventListener("load", progress, false);
-				image.setAttribute("src", [basePath, id].join("/"));
+				image.addEventListener('load', progress, false);
+				image.setAttribute('src', [basePath, id].join('/'));
 				imageset[id] = image;
 			};
 
@@ -1937,10 +1970,10 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 		}
 
 		var image = new Image();
-		if (typeof callback === "function") {
-			image.addEventListener("load", callback, false);
+		if (typeof callback === 'function') {
+			image.addEventListener('load', callback, false);
 		}
-		image.setAttribute("src", [basePath, id].join("/"));
+		image.setAttribute('src', [basePath, id].join('/'));
 		return imageset[id] = image;
 	};
 
@@ -1978,7 +2011,7 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 			for (var j in sources[i]) {
 				try {
 					var info = Canvace.Loader.getSourceInfo(sources[i][j]);
-					var source = [basePath, info.url].join("/");
+					var source = [basePath, info.url].join('/');
 
 					if (audio.canPlayType(info.mimeType)) {
 						suitable = true;
@@ -2023,38 +2056,38 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 *
 	 * @example
 	 *	var soundResources = null;
-	 *	
+	 *
 	 *	// Explicit description of the sources, complete with MIME type and URL
 	 *	soundResources = {
-	 *		"first-sound": [{
-	 *			mimeType: "audio/mp3",
-	 *			url: "first.mp3"
+	 *		'first-sound': [{
+	 *			mimeType: 'audio/mp3',
+	 *			url: 'first.mp3'
 	 *		}, {
-	 *			mimeType: "application/ogg",
-	 *			url: "first.ogg"
+	 *			mimeType: 'application/ogg',
+	 *			url: 'first.ogg'
 	 *		}],
-	 *		"second-sound": [{
-	 *			mimeType: "audio/mp3",
-	 *			url: "second.mp3"
+	 *		'second-sound': [{
+	 *			mimeType: 'audio/mp3',
+	 *			url: 'second.mp3'
 	 *		}, {
-	 *			mimeType: "application/ogg",
-	 *			url: "second.ogg"
+	 *			mimeType: 'application/ogg',
+	 *			url: 'second.ogg'
 	 *		}]
 	 *	};
-	 *	
+	 *
 	 *	// Implicit description of the sources, with just the URL specified
 	 *	soundResources = {
-	 *		"first-sound": ["first.mp3", "first.ogg"],
-	 *		"second-sound": ["second.mp3", "second.ogg"]
+	 *		'first-sound': ['first.mp3', 'first.ogg'],
+	 *		'second-sound': ['second.mp3', 'second.ogg']
 	 *	};
-	 *	
+	 *
 	 *	var xhr = new XMLHttpRequest();
-	 *	xhr.addEventListener("load", function () {
-	 *		var loader = new Canvace.Loader("media");
+	 *	xhr.addEventListener('load', function () {
+	 *		var loader = new Canvace.Loader('media');
 	 *		loader.loadAssets(JSON.parse(xhr.responseText), soundResources);
 	 *	}, false);
-	 *	xhr.open("GET", "stage.json", true);
-	 *	xhr.responseType = "text";
+	 *	xhr.open('GET', 'stage.json', true);
+	 *	xhr.responseType = 'text';
 	 *	xhr.send();
 	 *
 	 * @method loadAssets
@@ -2063,7 +2096,7 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * @param [soundsData] {Object} A map where the keys indicate the name of
 	 * the sound to load, and the values are `Array`s of source descriptors,
 	 * which are either `Object`s (each containing the string properties
-	 * "mimeType" and "url") or `String`s (indicating the URL of the
+	 * 'mimeType' and 'url') or `String`s (indicating the URL of the
 	 * resource to load, in which case the loader tries to infer the MIME type
 	 * from the file extension). Object and String source descriptors can be
 	 * mixed.
@@ -2072,8 +2105,8 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * playing the specified MIME type.
 	 */
 	this.loadAssets = function (imagesData, soundsData) {
-		imagesLoaded = (typeof imagesData === "undefined" || typeof imagesData === "null");
-		soundsLoaded = (typeof soundsData === "undefined" || typeof soundsData === "null");
+		imagesLoaded = (typeof imagesData === 'undefined' || typeof imagesData === 'null');
+		soundsLoaded = (typeof soundsData === 'undefined' || typeof soundsData === 'null');
 
 		if (imagesLoaded && soundsLoaded) {
 			loadFinished();
@@ -2092,9 +2125,9 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 
 Canvace.Loader.guessMimeType = function (source) {
 	var mimeMap = [
-		[/\.aac$/i, "audio/aac"],
-		[/\.mp3$/i, "audio/mp3"],
-		[/\.ogg$/i, "application/ogg"]
+		[/\.aac$/i, 'audio/aac'],
+		[/\.mp3$/i, 'audio/mp3'],
+		[/\.ogg$/i, 'application/ogg']
 	];
 
 	for (var i in mimeMap) {
@@ -2103,24 +2136,24 @@ Canvace.Loader.guessMimeType = function (source) {
 		}
 	}
 
-	throw "Couldn't guess the MIME type from the resource URL";
+	throw 'Couldn\'t guess the MIME type from the resource URL';
 };
 
 Canvace.Loader.getSourceInfo = function (source) {
-	if (typeof source === "string") {
+	if (typeof source === 'string') {
 		return {
 			url: source,
 			mimeType: Canvace.Loader.guessMimeType(source)
 		};
 	}
 
-	if (typeof source === "object") {
-		if (source.hasOwnProperty("url") && source.hasOwnProperty("mimeType")) {
+	if (typeof source === 'object') {
+		if (source.hasOwnProperty('url') && source.hasOwnProperty('mimeType')) {
 			return source;
 		}
 	}
 
-	throw "Invalid source specified";
+	throw 'Invalid source specified';
 };
 
 /**
@@ -2152,6 +2185,7 @@ Canvace.Loader.prototype.playSound = function (name, loop) {
 	}
 	return sound;
 };
+
 Canvace.View = function (data, canvas) {
 	var mat = data.matrix;
 	var inv = (function () {
@@ -2390,6 +2424,27 @@ Canvace.View = function (data, canvas) {
 	};
 
 	/**
+	 * TODO
+	 *
+	 * @method intersects
+	 * @param i {Number} TODO
+	 * @param j {Number} TODO
+	 * @param di {Number} TODO
+	 * @param dj {Number} TODO
+	 * @return {Boolean} TODO
+	 */
+	this.intersects = function (i, j, k, di, dj, dk) {
+		var x0 = mat[0][0] * i + mat[0][1] * j + mat[0][2] * k;
+		var y0 = mat[1][0] * i + mat[1][1] * j + mat[1][2] * k;
+		var x1 = mat[0][0] * (i + di) + mat[0][1] * (j + dj) + mat[0][2] * (k + dk);
+		var y1 = mat[1][0] * (i + di) + mat[1][1] * (j + dj) + mat[1][2] * (k + dk);
+		return (Math.min(x0, x1) < width - x0) &&
+			(Math.max(x0, x1) > -x0) &&
+			(Math.min(y0, y1) < height - y0) &&
+			(Math.max(y0, y1) > -y0);
+	};
+
+	/**
 	 * Manages the synchronization of the view on some specified entity instance
 	 * of a stage, making the view always point at that entity.
 	 *
@@ -2486,23 +2541,22 @@ Canvace.FrameTable = function (data) {
 	}
 
 	function Animation(frames) {
-		var makeFrameIdGetter = function (frame) {
-			return function () {
-				return frame.id;
-			};
-		};
-
 		if (frames.length < 2) {
-			return makeFrameIdGetter(frames[0]);
+			return function () {
+				return frames[0].id;
+			};
 		} else {
 			var partialUnit = 0;
 			var fullDuration = 0;
+			var looping = true;
+			var lastFrameId;
 			for (var i in frames) {
-				if ('duration' in frames[i]) {
+				if (frames[i].hasOwnProperty('duration')) {
 					partialUnit = gcd(partialUnit, frames[i].duration);
 					fullDuration += frames[i].duration;
 				} else {
-					return makeFrameIdGetter(frames[i]);
+					looping = false;
+					lastFrameId = frames[i].id;
 				}
 			}
 
@@ -2526,9 +2580,19 @@ Canvace.FrameTable = function (data) {
 			synchronize(partialUnit);
 			synchronizers.push(synchronize);
 
-			return function (timestamp) {
-				return table[Math.floor((timestamp % fullDuration) / unit) * unit];
-			};
+			if (looping) {
+				return function (timestamp) {
+					return table[Math.floor((timestamp % fullDuration) / unit) * unit];
+				};
+			} else {
+				return function (timestamp) {
+					if (timestamp >= fullDuration) {
+						return lastFrameId;
+					} else {
+						return table[Math.floor(timestamp / unit) * unit];
+					}
+				};
+			}
 		}
 	}
 
@@ -2587,7 +2651,7 @@ Canvace.Buckets = (function () {
 		function Bucket() {
 			var sections = {};
 			var minS = 0, maxS = 0;
-			this.add = function (p, width, height, getFrame) {
+			this.add = function (p, width, height, getFrame, timeOffset) {
 				minS = Math.min(minS, p[2]);
 				maxS = Math.max(maxS, p[2]);
 				if (!sections[p[2]]) {
@@ -2597,7 +2661,8 @@ Canvace.Buckets = (function () {
 					p: p,
 					width: width,
 					height: height,
-					getFrame: getFrame
+					getFrame: getFrame,
+					timeOffset: timeOffset
 				});
 			};
 			this.forEach = function (action) {
@@ -2635,6 +2700,7 @@ Canvace.Buckets = (function () {
 			var bj = Math.floor(p[0] / width);
 
 			var animation = getAnimation();
+			var timeOffset = Canvace.Timing.now();
 
 			var removers = [];
 			var removed = false;
@@ -2644,7 +2710,7 @@ Canvace.Buckets = (function () {
 				if (!buckets.hasOwnProperty(key)) {
 					buckets[key] = new Bucket();
 				}
-				removers.push(buckets[key].add(p, element.width, element.height, animation));
+				removers.push(buckets[key].add(p, element.width, element.height, animation, timeOffset));
 			}
 
 			function addToBuckets() {
@@ -2745,11 +2811,16 @@ Canvace.Buckets = (function () {
 					if ((p1[2] !== p[2]) || (bi1 !== bi) || (bj1 !== bj)) {
 						remove();
 						removed = false;
-						p[0] = p1[0], p[1] = p1[1], p[2] = p1[2];
-						bi = bi1, bj = bj1;
+						p[0] = p1[0];
+						p[1] = p1[1];
+						p[2] = p1[2];
+						bi = bi1;
+						bj = bj1;
 						addToBuckets();
 					} else {
-						p[0] = p1[0], p[1] = p1[1], p[2] = p1[2];
+						p[0] = p1[0];
+						p[1] = p1[1];
+						p[2] = p1[2];
 					}
 				}
 			};
@@ -2765,6 +2836,17 @@ Canvace.Buckets = (function () {
 			 * @return {Boolean} `true`.
 			 */
 			this.remove = remove;
+
+			/**
+			 * Indicates whether this entity has been removed from the buckets.
+			 *
+			 * @method isRemoved
+			 * @return {Boolean} `true` if this element has been removed,
+			 * `false` otherwise.
+			 */
+			this.isRemoved = function () {
+				return removed;
+			};
 
 			/**
 			 * Replaces the entity with another one identified by the specified
@@ -2952,25 +3034,23 @@ Canvace.Buckets = (function () {
 		 * Y coordinate and image ID, respectively.
 		 *
 		 * @method forEachElement
-		 * @param timestamp {Number} A timestamp expressed in milliseconds. This
-		 * is necessary in order to return the correct image IDs for animated
-		 * elements.
 		 * @param action {Function} A callback function to invoke for each
 		 * enumerated element.
 		 */
-		this.forEachElement = function (timestamp, action) {
+		this.forEachElement = function (action) {
 			var origin = view.getOrigin();
 			var i = Math.floor(-origin.y / height);
 			var j = Math.floor(-origin.x / width);
 			var key = i + ' ' + j;
 			if (buckets.hasOwnProperty(key)) {
+				var timestamp = Canvace.Timing.now();
 				buckets[key].forEach(function (element) {
 					if ((element.p[0] < -origin.x + actualWidth) &&
 						(element.p[1] < -origin.y + actualHeight) &&
 						(element.p[0] + element.width >= -origin.x) &&
 						(element.p[1] + element.height >= -origin.y))
 					{
-						action(element.p[0], element.p[1], element.getFrame(timestamp));
+						action(element.p[0], element.p[1], element.getFrame(timestamp - element.timeOffset));
 					}
 				});
 			}
@@ -3058,30 +3138,23 @@ Canvace.Renderer = function (canvas, loader, view, buckets, preProcess, postProc
 	 * Renders the stage to the canvas.
 	 *
 	 * @method render
-	 * @param counter {Number} A timestamp expressed in milliseconds. This is
-	 * necessary in order to render the correct frame for animated elements.
 	 */
-	this.render = function (counter) {
+	this.render = function () {
 		var origin = view.getOrigin();
 		context.setTransform(1, 0, 0, 1, origin.x, origin.y);
 		context.clearRect(-origin.x, -origin.y, width, height);
-
-		if (typeof preProcess === "function") {
-			preProcess(context);
-		}
-
-		buckets.forEachElement(counter, function (x, y, id) {
+		preProcess && preProcess(context);
+		buckets.forEachElement(function (x, y, id) {
 			context.drawImage(loader.getImage(id), x, y);
 		});
-
-		if (typeof postProcess === "function") {
-			postProcess(context);
-		}
+		postProcess && postProcess(context);
 	};
 };
 
 Canvace.TileMap = function (data, buckets) {
 	var map = data.map;
+
+	var tileCache = {};
 
 	/**
 	 * This class wraps a tile descriptor.
@@ -3231,24 +3304,107 @@ Canvace.TileMap = function (data, buckets) {
 		return false;
 	};
 
+	function assertObject(object, properties) {
+		for (var key in properties) {
+			if (properties.hasOwnProperty(key)) {
+				var value;
+				if (key in object) {
+					value = object[key];
+				} else {
+					return false;
+				}
+				if (typeof properties[key] !== 'object') {
+					if (value !== properties[key]) {
+						return false;
+					}
+				} else if ((typeof value !== 'object') ||
+					!assertObject(value, properties[key]))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	function getTileIds(properties) {
+		var ids = [];
+		for (var id in data.tiles) {
+			if (assertObject(data.tiles[id].properties, properties)) {
+				ids.push(id);
+			}
+		}
+		return ids;
+	}
+
 	/**
-	 * Returns a `Tile` object that describes the tile identified by the
-	 * specified ID.
+	 * TODO
+	 *
+	 * @method getTileIds
+	 * @param [properties] {Object} TODO
+	 * @return {Number[]} TODO
+	 */
+	this.getTileIds = getTileIds;
+
+	function getTileId(properties) {
+		for (var id in data.tiles) {
+			if (assertObject(data.tiles[id].properties, properties)) {
+				return id;
+			}
+		}
+	}
+
+	/**
+	 * TODO
+	 *
+	 * @method getTileId
+	 * @param [properties] {Object} TODO
+	 * @return {Number} TODO
+	 */
+	this.getTileId = getTileId;
+
+	/**
+	 * Returns a `Tile` object that describes the requested tile.
+	 *
+	 * A tile can be identified either by ID or filtering properties; TODO
 	 *
 	 * This method throws an exception if the ID is not valid, i.e. it is not
 	 * present in the JSON data output by the Canvace Development Environment.
 	 *
 	 * @method getTile
-	 * @param id {Number} A tile ID.
-	 * @return {Canvace.TileMap.Tile} A `Tile` object describing the specified
+	 * @param idOrProperties {Mixed} A tile ID or filtering properties object.
+	 * @return {Canvace.TileMap.Tile} A `Tile` object describing the requested
 	 * tile.
 	 */
-	this.getTile = function (id) {
-		if (id in data.tiles) {
-			return new Tile(id);
+	this.getTile = function (idOrProperties) {
+		var id;
+		if (typeof idOrProperties !== 'object') {
+			id = idOrProperties;
+			if (id in data.tiles) {
+				return tileCache[id] || (tileCache[id] = new Tile(id));
+			} else {
+				throw 'invalid tile id: ' + id;
+			}
 		} else {
-			throw 'invalid tile id: ' + id;
+			id = getTileId(idOrProperties);
+			return tileCache[id] || (tileCache[id] = new Tile(id));
 		}
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method getTiles
+	 * @param [properties] {Object} TODO
+	 * @return {Canvace.TileMap.Tile[]} TODO
+	 */
+	this.getTiles = function (properties) {
+		var ids = getTileIds(properties);
+		var tiles = [];
+		for (var i in ids) {
+			tiles.push(tileCache[ids[i]] || (tileCache[ids[i]] = new Tile(ids[i])));
+		}
+		return tiles;
 	};
 
 	/**
@@ -3387,36 +3543,26 @@ Canvace.TileMap = function (data, buckets) {
 	 * arguments.
 	 *
 	 * The implementation of this method assumes the rectangular area represents
-	 * a moving entity (though not necessarily a Canvace entity) which is
-	 * characterized by its own velocity and acceleration vectors; these vectors
-	 * are used in the collision algorithm in that it assumes the moving entity
-	 * cannot have compenetrated a tile along the I or J axis more than a
-	 * certain amount that is computed using the velocity and acceleration
-	 * vectors. This is necessary in order to obtain a functional physics
+	 * a moving entity (though not necessarily a Canvace entity). The collision
+	 * algorithm assumes the moving entity cannot have compenetrated a tile
+	 * along the I or J axis more than specified amounts `Di` and `Dj`,
+	 * respectively; this is necessary in order to obtain a functional physics
 	 * algorithm.
-	 *
-	 * If the rectangular area actually is the bounding box of a Canvace entity,
-	 * you can specify the I and J components of its actual velocity and
-	 * acceleration vectors to the `vi`, `vj`, `ai` and `aj` arguments. Use the
-	 * `getAcceleration` method of the `Stage.Instance` class to get the
-	 * acceleration vector; the velocity vector can be retrieved by adding the
-	 * two vectors returned by the `getVelocity` and `getUniformVelocity` of the
-	 * `Stage.Instance` class. This is actually what the `testTileCollision`
-	 * method of the `Stage.Instance` class does.
 	 *
 	 * This method can be used to implement in-layer, bounding box based, entity
 	 * vs. tiles collisions. If the rectangular area represents the bounding box
 	 * of an entity, its origin's `i` and `j` coordinates can be obtained using
 	 * the `Stage.Instance.getPosition` method, while the `di` and `dj` span
-	 * values are usually constant and must be arbitrarily determined by the
-	 * developer.
+	 * values are usually per-entity constant and must be arbitrarily determined
+	 * by the developer.
 	 *
-	 * `rectangleCollision` method is typically invoked for one or more entities
-	 * or other rectangular areas each time a stage is ticked. To compute the
-	 * maximum amount a rectangle can overlap one or more tiles along the I and
-	 * J axes, the `rectangleCollision` algorithm also needs to know the time
-	 * span (in milliseconds) between the current timestamp and the last time it
-	 * was called.
+	 * If the rectangular area actually is the bounding box of a Canvace entity,
+	 * you can specify the distance the entity has gone along the I and J axes
+	 * since the last step as values for the `Di` and `Dj` arguments; you can do
+	 * that by caching the values of the `i` and `j` components of the entity's
+	 * position and subtracting them to their respective values of the current
+	 * position at each step. This is actually what the `testTileCollision`
+	 * method of the `Stage.Instance` class does.
 	 *
 	 * @method rectangleCollision
 	 * @param k {Number} The number of the layer containing the tiles against
@@ -3429,20 +3575,8 @@ Canvace.TileMap = function (data, buckets) {
 	 * This may be a real number.
 	 * @param dj {Number} The span of the rectangular area along the J axis.
 	 * This may be a real number.
-	 * @param vi {Number} The I component of the velocity vector. This may be a
-	 * real number.
-	 * @param vj {Number} The J component of the velocity vector. This may be a
-	 * real number.
-	 * @param ai {Number} The I component of the acceleration vector. This may
-	 * be a real number.
-	 * @param aj {Number} The J component of the acceleration vector. This may
-	 * be a real number.
-	 * @param dt {Number} The time span, in milliseconds, between the current
-	 * time and the last time this method was called for the same entity or
-	 * rectangular area.
-	 *
-	 * You can specify 0 if the method is being invoked for the first time, but
-	 * it will assume that there are no collisions.
+	 * @param Di {Number} TODO
+	 * @param Dj {Number} TODO
 	 * @param [collides] {Function} An optional user-defined callback function
 	 * that is invoked by the `rectangleCollision` method for every tile that
 	 * collides with the specified rectangle.
@@ -3454,7 +3588,7 @@ Canvace.TileMap = function (data, buckets) {
 	 * @return {Object} An object containing two number fields, `i` and `j`,
 	 * specifying the I and J components of the computed vector.
 	 */
-	this.rectangleCollision = function (k, i, j, di, dj, vi, vj, ai, aj, dt, collides) {
+	this.rectangleCollision = function (k, i, j, di, dj, Di, Dj, collides) {
 		var viu = 0;
 		var vio = 0;
 		var vju = 0;
@@ -3526,15 +3660,12 @@ Canvace.TileMap = function (data, buckets) {
 			v.j = vjo;
 		}
 
-		/*
-		var dt2 = dt * dt * 0.5;
-		if (Math.abs(v.i) > Math.abs(vi * dt + ai * dt2) + 0.001) {
+		if (Math.abs(v.i) > Math.abs(Di) + 0.001) {
 			v.i = 0;
 		}
-		if (Math.abs(v.j) > Math.abs(vj * dt + aj * dt2) + 0.001) {
+		if (Math.abs(v.j) > Math.abs(Dj) + 0.001) {
 			v.j = 0;
 		}
-		*/
 
 		return v;
 	};
@@ -3543,6 +3674,8 @@ Canvace.TileMap = function (data, buckets) {
 Canvace.Stage = function (data, canvas) {
 	var view = new Canvace.View(data, canvas);
 	var buckets = new Canvace.Buckets(view, data);
+
+	var map = null;
 
 	var entities = {};
 	var instances = new Canvace.MultiSet();
@@ -3633,23 +3766,10 @@ Canvace.Stage = function (data, canvas) {
 		};
 
 		/**
-		 * Get an actual reference to the bounding box of this entity.
-		 * See the `getBoundingBox` method for a detailed description.
-		 *
-		 * The returned entity is the real bounding box used internally, so any
-		 * modification made to the returned object will affect the way the
-		 * entity interacts with the surrounding environment.
-		 *
-		 * @method getRealBoundingBox
-		 * @return {Object} An object containing four fields, `i0`, `j0`,
-		 * `iSpan` and `jSpan`, describing the bounding box.
-		 */
-		this.getRealBoundingBox = function () {
-			return entity.box;
-		};
-
-		/**
-		 * Returns an object describing the bounding box of this entity.
+		 * Returns a reference to an object describing the bounding box of this
+		 * entity. Any modification made to the returned object will affect the
+		 * way instances of this entity interact with the surrounding
+		 * environment.
 		 *
 		 * The returned object contains four real number fields: `i0`, `j0`,
 		 * `iSpan` and `jSpan`. The `i0` and `j0` fields are the offsets of the
@@ -3657,24 +3777,13 @@ Canvace.Stage = function (data, canvas) {
 		 * I and J axis, respectively. The `iSpan` and `jSpan` fields are the
 		 * span of the bounding box along the I and J axis, respectively.
 		 *
-		 * The bounding box is used internally to implement collisions against
-		 * tiles or other entities.
-		 *
 		 * @method getBoundingBox
 		 * @return {Object} An object containing four fields, `i0`, `j0`,
-		 * `iSpan` and `jSpan`, describing the bounding box.
+		 *	`iSpan` and `jSpan`, describing the bounding box.
 		 */
-		this.getBoundingBox = (function () {
-			var result = {
-				i0: entity.box.i0,
-				j0: entity.box.j0,
-				iSpan: entity.box.iSpan,
-				jSpan: entity.box.jSpan
-			};
-			return function () {
-				return result;
-			};
-		})();
+		this.getBoundingBox = function () {
+			return entity.box;
+		};
 
 		/**
 		 * Enumerates all the instances of this entity currently present in the
@@ -3751,6 +3860,11 @@ Canvace.Stage = function (data, canvas) {
 				j: j,
 				k: k,
 				position: {
+					i: i,
+					j: j,
+					k: k
+				},
+				previousPosition: {
 					i: i,
 					j: j,
 					k: k
@@ -3849,28 +3963,6 @@ Canvace.Stage = function (data, canvas) {
 				};
 			})(remove, instancesWithPhysics.add(this));
 		}
-
-		// FIXME
-		this.drawBoundingBox = function (view, context, color) {
-			var position = view.project(
-				instance.position.i + entity.box.i0,
-				instance.position.j + entity.box.j0,
-				instance.position.k);
-
-			var dimension = view.project(
-				entity.box.iSpan,
-				entity.box.jSpan,
-				0);
-
-			context.save();
-			context.strokeStyle = (color || "red");
-			context.strokeRect(
-				position[0],
-				position[1],
-				dimension[0],
-				dimension[1]);
-			context.restore();
-		};
 
 		/**
 		 * Returns the numeric ID of the instance, or `null` if this instance
@@ -4135,9 +4227,6 @@ Canvace.Stage = function (data, canvas) {
 		 * `Canvace.TileMap.rectangleCollision` method to the caller.
 		 *
 		 * @method testTileCollision
-		 * @param tileMap {Canvace.TileMap} A `Canvace.TileMap` object whose
-		 * tiles are tested for collisions with this entity instance.
-		 * @param dt {Number} TODO
 		 * @param [collides] {Function} An optional user-defined callback
 		 * function that is invoked by the `testTileCollision` method for every
 		 * tile that collides with the instance.
@@ -4147,6 +4236,9 @@ Canvace.Stage = function (data, canvas) {
 		 * tile is "solid" for this instance and must be taken into account as a
 		 * colliding tile. If the function returns `false` the tile is _not_
 		 * taken into account.
+		 * @param [tileMap] {Canvace.TileMap} An optional `Canvace.TileMap`
+		 * object whose tiles are tested for collisions with this entity
+		 * instance. When not specified, this stage's tile map is used.
 		 * @return {Object} A vector that is computed by the method and can be
 		 * used to restore a "regular" configuration where the entity instance
 		 * does not collide with the tiles.
@@ -4154,18 +4246,15 @@ Canvace.Stage = function (data, canvas) {
 		 * See the `Canvace.TileMap.rectangleCollision` method for more
 		 * information, the return value is the same.
 		 */
-		this.testTileCollision = function (tileMap, dt, collides) {
-			return tileMap.rectangleCollision(
+		this.testTileCollision = function (collides, tileMap) {
+			return (tileMap || map).rectangleCollision(
 				Math.floor(instance.k),
 				instance.position.i + entity.box.i0,
 				instance.position.j + entity.box.j0,
 				entity.box.iSpan,
 				entity.box.jSpan,
-				instance.velocity.i + instance.uniformVelocity.i,
-				instance.velocity.j + instance.uniformVelocity.j,
-				instance.acceleration.i,
-				instance.acceleration.j,
-				dt,
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j,
 				collides
 				);
 		};
@@ -4197,26 +4286,22 @@ Canvace.Stage = function (data, canvas) {
 		 * forwarded to the caller.
 		 *
 		 * @method tileCollision
-		 * @param tileMap {Canvace.TileMap} A `Canvace.TileMap` object whose
-		 * tiles are tested for collisions with this entity instance.
-		 * @param dt {Number} TODO
 		 * @param [collides] {Function} TODO
+		 * @param [tileMap] {Canvace.TileMap} A `Canvace.TileMap` object whose
+		 * tiles are tested for collisions with this entity instance.
 		 * @return {Object} The vector object returned by the
 		 * `rectangleCollision` method of
 		 * {{#crossLink "Canvace.TileMap"}}{{/crossLink}}.
 		 */
-		this.tileCollision = function (tileMap, dt, collides) {
-			var v = tileMap.rectangleCollision(
+		this.tileCollision = function (collides, tileMap) {
+			var v = (tileMap || map).rectangleCollision(
 				Math.floor(instance.k),
 				instance.position.i + entity.box.i0,
 				instance.position.j + entity.box.j0,
 				entity.box.iSpan,
 				entity.box.jSpan,
-				instance.velocity.i + instance.uniformVelocity.i,
-				instance.velocity.j + instance.uniformVelocity.j,
-				instance.acceleration.i,
-				instance.acceleration.j,
-				dt,
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j,
 				collides
 				);
 			instance.position.i += v.i;
@@ -4232,6 +4317,40 @@ Canvace.Stage = function (data, canvas) {
 				instance.velocity.j = 0;
 			}
 			return v;
+		};
+
+		/**
+		 * TODO
+		 *
+		 * @method collidesWithTiles
+		 * @param [collides] {Function} TODO
+		 * @param [tileMap] {Canvace.TileMap} TODO
+		 * @return {Boolean} TODO
+		 */
+		this.collidesWithTiles = function (collides, tileMap) {
+			var v = (tileMap || map).rectangleCollision(
+				Math.floor(instance.k),
+				instance.position.i + entity.box.i0,
+				instance.position.j + entity.box.j0,
+				entity.box.iSpan,
+				entity.box.jSpan,
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j,
+				collides
+				);
+			instance.position.i += v.i;
+			instance.position.j += v.j;
+			if ((v.i > 0) && (instance.velocity.i < 0)) {
+				instance.velocity.i = 0;
+			} else if ((v.i < 0) && (instance.velocity.i > 0)) {
+				instance.velocity.i = 0;
+			}
+			if ((v.j > 0) && (instance.velocity.j < 0)) {
+				instance.velocity.j = 0;
+			} else if ((v.j < 0) && (instance.velocity.j > 0)) {
+				instance.velocity.j = 0;
+			}
+			return v.i || v.j;
 		};
 
 		/**
@@ -4283,17 +4402,12 @@ Canvace.Stage = function (data, canvas) {
 		 * This may be a real number.
 		 * @param dj {Number} The span of the rectangular area along the J axis.
 		 * This may be a real number.
-		 * @param vi {Number} The I component of the velocity vector. This may
-		 * be a real number.
-		 * @param vj {Number} The J component of the velocity vector. This may
-		 * be a real number.
-		 * @param ai {Number} TODO
-		 * @param aj {Number} TODO
-		 * @param dt {Number} TODO
+		 * @param Di {Number} TODO
+		 * @param Dj {Number} TODO
 		 * @return {Object} An object containing two number fields, `i` and `j`,
 		 * specifying the I and J components of the computed vector.
 		 */
-		this.rectangleCollision = function (i, j, di, dj, vi, vj, ai, aj, dt) {
+		this.rectangleCollision = function (i, j, di, dj, Di, Dj) {
 			var v = {
 				i: 0,
 				j: 0
@@ -4335,11 +4449,10 @@ Canvace.Stage = function (data, canvas) {
 					}
 				}
 			}
-			var dt2 = dt * dt * 0.5;
-			if (Math.abs(v.i) > Math.abs((instance.velocity.i + instance.uniformVelocity.i - vi) * dt + (instance.acceleration.i - ai) * dt2) + 0.001) {
+			if (Math.abs(v.i) > Math.abs(instance.position.i - instance.previousPosition.i - Di) + 0.001) {
 				v.i = 0;
 			}
-			if (Math.abs(v.j) > Math.abs((instance.velocity.j + instance.uniformVelocity.j - vj) * dt + (instance.acceleration.j - aj) * dt2) + 0.001) {
+			if (Math.abs(v.j) > Math.abs(instance.position.j - instance.previousPosition.j - Dj) + 0.001) {
 				v.j = 0;
 			}
 			return v;
@@ -4368,17 +4481,14 @@ Canvace.Stage = function (data, canvas) {
 		 * See the `Canvace.Stage.Instance.rectangleCollision` method for more
 		 * information, the return value is the same.
 		 */
-		this.testCollision = function (otherInstance, dt) {
+		this.testCollision = function (otherInstance) {
 			return otherInstance.rectangleCollision(
 				instance.position.i + entity.box.i0,
 				instance.position.j + entity.box.j0,
 				entity.box.iSpan,
 				entity.box.jSpan,
-				instance.velocity.i + instance.uniformVelocity.i,
-				instance.velocity.j + instance.uniformVelocity.j,
-				instance.acceleration.i,
-				instance.acceleration.j,
-				dt
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j
 				);
 		};
 
@@ -4413,17 +4523,14 @@ Canvace.Stage = function (data, canvas) {
 		 * @return {Object} The vector object returned by the
 		 * `Canvace.Stage.Instance.rectangleCollision` method.
 		 */
-		this.collision = function (otherInstance, dt) {
+		this.collision = function (otherInstance) {
 			var v = otherInstance.rectangleCollision(
 				instance.position.i + entity.box.i0,
 				instance.position.j + entity.box.j0,
 				entity.box.iSpan,
 				entity.box.jSpan,
-				instance.velocity.i + instance.uniformVelocity.i,
-				instance.velocity.j + instance.uniformVelocity.j,
-				instance.acceleration.i,
-				instance.acceleration.j,
-				dt
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j
 				);
 			instance.position.i += v.i;
 			instance.position.j += v.j;
@@ -4441,6 +4548,37 @@ Canvace.Stage = function (data, canvas) {
 		};
 
 		/**
+		 * TODO
+		 *
+		 * @method collidesWithInstance
+		 * @param otherInstance {Canvace.Instance} TODO
+		 * @return {Boolean} TODO
+		 */
+		this.collidesWithInstance = function (otherInstance) {
+			var v = otherInstance.rectangleCollision(
+				instance.position.i + entity.box.i0,
+				instance.position.j + entity.box.j0,
+				entity.box.iSpan,
+				entity.box.jSpan,
+				instance.position.i - instance.previousPosition.i,
+				instance.position.j - instance.previousPosition.j
+				);
+			instance.position.i += v.i;
+			instance.position.j += v.j;
+			if ((v.i > 0) && (instance.velocity.i < 0)) {
+				instance.velocity.i = 0;
+			} else if ((v.i < 0) && (instance.velocity.i > 0)) {
+				instance.velocity.i = 0;
+			}
+			if ((v.j > 0) && (instance.velocity.j < 0)) {
+				instance.velocity.j = 0;
+			} else if ((v.j < 0) && (instance.velocity.j > 0)) {
+				instance.velocity.j = 0;
+			}
+			return v.i || v.j;
+		};
+
+		/**
 		 * "Ticks" the instance, updating its position based on its velocity and
 		 * its velocity based on its acceleration.
 		 *
@@ -4452,6 +4590,9 @@ Canvace.Stage = function (data, canvas) {
 		 */
 		this.tick = function (dt) {
 			var dt2 = dt * dt * 0.5;
+			instance.previousPosition.i = instance.position.i;
+			instance.previousPosition.j = instance.position.j;
+			instance.previousPosition.k = instance.position.k;
 			instance.position.i += (instance.velocity.i + instance.uniformVelocity.i) * dt + instance.acceleration.i * dt2;
 			instance.position.j += (instance.velocity.j + instance.uniformVelocity.j) * dt + instance.acceleration.j * dt2;
 			instance.position.k += (instance.velocity.k + instance.uniformVelocity.k) * dt + instance.acceleration.k * dt2;
@@ -4483,7 +4624,7 @@ Canvace.Stage = function (data, canvas) {
 		 * be enumerated any more by the `DefaultRenderer.forEachEntity` method.
 		 *
 		 * This method does not do anything if the instance has already been
-		 * removed or replaced with another entity using the `replaceEntity`
+		 * removed or replaced with another entity using the `replaceWith`
 		 * method.
 		 *
 		 * @method remove
@@ -4492,6 +4633,15 @@ Canvace.Stage = function (data, canvas) {
 			element.remove();
 			remove();
 		};
+
+		/**
+		 * Indicates whether this instance has been removed from the stage.
+		 *
+		 * @method isRemoved
+		 * @return {Boolean} `true` if this instance has been removed, `false`
+		 * otherwise.
+		 */
+		this.isRemoved = element.isRemoved;
 
 		/**
 		 * Replaces this entity instance with a new instance of another entity.
@@ -4548,6 +4698,11 @@ Canvace.Stage = function (data, canvas) {
 					j: instance.position.j,
 					k: instance.position.k
 				},
+				previousPosition: {
+					i: instance.previousPosition.i,
+					j: instance.previousPosition.j,
+					k: instance.previousPosition.k
+				},
 				velocity: {
 					i: instance.velocity.i,
 					j: instance.velocity.j,
@@ -4586,6 +4741,11 @@ Canvace.Stage = function (data, canvas) {
 				j: instance.j,
 				k: instance.k
 			};
+			instance.previousPosition = {
+				i: instance.i,
+				j: instance.j,
+				k: instance.k
+			};
 			instance.velocity = {
 				i: 0,
 				j: 0,
@@ -4603,6 +4763,7 @@ Canvace.Stage = function (data, canvas) {
 			};
 			new Instance(parseInt(id, 10), buckets.addEntity(instance.id, instance.i, instance.j, instance.k));
 		}
+		map = new Canvace.TileMap(data, buckets);
 	})();
 
 	/**
@@ -4666,8 +4827,6 @@ Canvace.Stage = function (data, canvas) {
 		return buckets;
 	};
 
-	var map = null;
-
 	/**
 	 * Provides a {{#crossLink "Canvace.TileMap"}}{{/crossLink}} object that
 	 * allows to manage this stage's tile map.
@@ -4680,7 +4839,7 @@ Canvace.Stage = function (data, canvas) {
 	 * tile map.
 	 */
 	this.getTileMap = function () {
-		return map || (map = new Canvace.TileMap(data, buckets));
+		return map;
 	};
 
 	/**
@@ -4731,6 +4890,41 @@ Canvace.Stage = function (data, canvas) {
 	};
 
 	/**
+	 * Returns an array of entities not filtered by the specified filtering
+	 * properties.
+	 *
+	 * Entities are filtered based on their custom properties. The `properties`
+	 * argument contains the filtering properties: an entity is returned only if
+	 * all of its filtered properties' values correspond to those declared in
+	 * the `properties` argument. All other properties in the entity are not
+	 * taken into account. This means that if you specify an empty `properties`
+	 * object, all the entities are returned.
+	 *
+	 * Some custom properties may actually be objects containing other
+	 * properties. This method performs a recursive deep comparison: the
+	 * `properties` object may have nested objects containing other filtering
+	 * properties.
+	 *
+	 * The chosen entities are returned as an array of `Stage.Entity` objects.
+	 *
+	 * @method getEntities
+	 * @param [properties={}] {Object} The filtering properties.
+	 * @return {Canvace.Stage.Entity[]} An array of `Canvace.Stage.Entity` objects
+	 * representing the returned entities.
+	 */
+	this.getEntities = function (properties) {
+		var array = [];
+		for (var id in data.entities) {
+			if (data.entities.hasOwnProperty(id)) {
+				if (assertObject(data.entities[id].properties, properties || {}, {})) {
+					array.push(entities[id] || new Entity(id));
+				}
+			}
+		}
+		return array;
+	};
+
+	/**
 	 * Returns an arbitrarily chosen entity among the ones not filtered by the
 	 * specified filtering properties.
 	 *
@@ -4749,14 +4943,14 @@ Canvace.Stage = function (data, canvas) {
 	 * The chosen entity is returned as a `Stage.Entity` object.
 	 *
 	 * @method getEntity
-	 * @param properties {Object} The filtering properties.
+	 * @param [properties={}] {Object} The filtering properties.
 	 * @return {Canvace.Stage.Entity} A `Canvace.Stage.Entity` object
 	 * representing the returned entity.
 	 */
 	this.getEntity = function (properties) {
 		for (var id in data.entities) {
 			if (data.entities.hasOwnProperty(id)) {
-				if (assertObject(data.entities[id].properties, properties, {})) {
+				if (assertObject(data.entities[id].properties, properties || {}, {})) {
 					return entities[id] || new Entity(id);
 				}
 			}
@@ -4777,19 +4971,56 @@ Canvace.Stage = function (data, canvas) {
 	 *
 	 * It receives one single argument of type `Canvace.Stage.Instance` and can
 	 * interrupt the enumeration by returning `false`.
-	 * @param [properties] {Object} The optional filtering properties.
+	 * @param [properties={}] {Object} The optional filtering properties.
 	 * @return {Boolean} `true` if the callback function returned `false` and
 	 * the enumeration was interrupted, `false` otherwise.
 	 */
 	this.forEachInstance = function (action, properties) {
-		if (!properties) {
-			properties = {};
-		}
 		return instances.forEach(function (instance) {
-			if (assertObject(instance.getProperties(), properties, instance.getEntity().getProperties())) {
+			if (assertObject(instance.getProperties(), properties || {}, instance.getEntity().getProperties())) {
 				return action(instance);
 			}
 		});
+	};
+
+	/**
+	 * Returns an array of entity instances among the ones currently in the
+	 * stage and not filtered by the specified filtering properties.
+	 *
+	 * Entity instances are filtered based on their custom properties. The
+	 * `properties` argument contains the filtering properties: an instance is
+	 * returned only if all of its filtered properties' values correspond to
+	 * those declared in the `properties` argument. All other properties in the
+	 * instance are not taken into account. This means that if you specify an
+	 * empty `properties` object, an array containing all the instances is
+	 * returned.
+	 *
+	 * Some custom properties may actually be objects containing other
+	 * properties. This method performs a recursive deep comparison: the
+	 * `properties` object may have nested objects containing other filtering
+	 * properties.
+	 *
+	 * The entity instances are filtered based on its custom *instance*
+	 * properties, but its custom *entity* properties are used as a fallback: if
+	 * an instance does not contain a required property it is still returned if
+	 * its entity does.
+	 *
+	 * The chosen instances are returned as an array of `Canvace.Stage.Instance`
+	 * objects.
+	 *
+	 * @method getInstances
+	 * @param [properties={}] {Object} The filtering properties.
+	 * @return {Canvace.Stage.Instance[]} An array of `Canvace.Stage.Instance`
+	 * objects representing the returned entity instances.
+	 */
+	this.getInstances = function (properties) {
+		var array = [];
+		instances.forEach(function (instance) {
+			if (assertObject(instance.getProperties(), properties || {}, instance.getEntity().getProperties())) {
+				array.push(instance);
+			}
+		});
+		return array;
 	};
 
 	/**
@@ -4816,14 +5047,14 @@ Canvace.Stage = function (data, canvas) {
 	 * The chosen instance is returned as a `Canvace.Stage.Instance` object.
 	 *
 	 * @method getInstance
-	 * @param properties {Object} The filtering properties.
+	 * @param [properties={}] {Object} The filtering properties.
 	 * @return {Canvace.Stage.Instance} A `Canvace.Stage.Instance` object
 	 * representing the returned entity instance.
 	 */
 	this.getInstance = function (properties) {
 		var result = null;
 		instances.forEach(function (instance) {
-			if (assertObject(instance.getProperties(), properties, instance.getEntity().getProperties())) {
+			if (assertObject(instance.getProperties(), properties || {}, instance.getEntity().getProperties())) {
 				result = instance;
 				return false;
 			}
@@ -4976,11 +5207,187 @@ Canvace.StageRenderer = function (stage, loader) {
 	return renderer;
 };
 
+Canvace.DebugEffect = function (stage, options) {
+	var enabled = true;
+	var view = stage.getView();
+
+	/**
+	 * TODO
+	 *
+	 * @method enable
+	 */
+	this.enable = function () {
+		enabled = true;
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method disable
+	 */
+	this.disable = function () {
+		enabled = false;
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method toggle
+	 * @return {Boolean} TODO
+	 */
+	this.toggle = function (on) {
+		if (arguments.length < 1) {
+			return enabled = !enabled;
+		} else {
+			return enabled = !!on;
+		}
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method isEnabled
+	 * @return {Boolean} TODO
+	 */
+	this.isEnabled = function () {
+		return enabled;
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method getOption
+	 * @param name {String} TODO
+	 * @return {Any} TODO
+	 */
+	this.getOption = function (name) {
+		return options[name];
+	};
+
+	/**
+	 * TODO
+	 *
+	 * @method setOption
+	 * @param name {String} TODO
+	 * @param value {Any} TODO
+	 */
+	this.setOption = function (name, value) {
+		options[name] = value;
+	};
+
+	/**
+	 * Returns `false`.
+	 *
+	 * @method isOver
+	 * @return {Boolean} `false`.
+	 */
+	this.isOver = function () {
+		return false;
+	};
+
+	function drawQuadrilateral(context, i0, j0, k, iSpan, jSpan) {
+		var points = [
+			view.project(i0, j0, k),
+			view.project(i0 + iSpan, j0, k),
+			view.project(i0 + iSpan, j0 + jSpan, k),
+			view.project(i0, j0 + jSpan, k)
+		];
+		context.moveTo(points[0][0], points[0][1]);
+		context.lineTo(points[1][0], points[1][1]);
+		context.lineTo(points[2][0], points[2][1]);
+		context.lineTo(points[3][0], points[3][1]);
+		context.lineTo(points[0][0], points[0][1]);
+	}
+
+	function drawVector(context, origin, vector) {
+		var p0 = view.project(origin.i, origin.j, origin.k);
+		var p1 = view.project(origin.i + vector.i, origin.j + vector.j, origin.k + vector.k);
+		context.moveTo(p0[0], p0[1]);
+		context.lineTo(p1[0], p1[1]);
+		// TODO draw arrow tip
+	}
+
+	/**
+	 * TODO
+	 *
+	 * @method postProcess
+	 * @param context {CanvasRenderingContext2D} the rendering context of the
+	 * HTML5 canvas.
+	 */
+	this.postProcess = function (context) {
+		if (enabled) {
+			context.save();
+			context.globalAlpha = 1;
+			context.globalCompositeOperation = 'source-over';
+			context.lineWidth = 1;
+			context.lineCap = 'butt';
+			context.shadowOffsetX = 0;
+			context.shadowOffsetY = 0;
+			context.shadowBlur = 0;
+			context.shadowColor = 'transparent';
+			if (options.drawBoundingBoxes) {
+				context.strokeStyle = options.boundingBoxStyle || '#FF0000';
+				context.beginPath();
+				stage.forEachInstance(function (instance) {
+					var position = instance.getPosition();
+					var box = instance.getBoundingBox();
+					drawQuadrilateral(context, position.i + box.i0, position.j + box.j0, position.k, box.iSpan, box.jSpan);
+				});
+				context.stroke();
+			}
+			if (options.drawVelocity) {
+				context.strokeStyle = options.velocityStyle || '#FF0000';
+				context.beginPath();
+				stage.forEachInstance(function (instance) {
+					if (instance.isPhysicsEnabled()) {
+						drawVector(context, instance.getPosition(), instance.getVelocity());
+					}
+				});
+				context.stroke();
+			}
+			if (options.drawUniformVelocity) {
+				context.strokeStyle = options.uniformVelocityStyle || '#FF0000';
+				context.beginPath();
+				stage.forEachInstance(function (instance) {
+					if (instance.isPhysicsEnabled()) {
+						drawVector(context, instance.getPosition(), instance.getUniformVelocity());
+					}
+				});
+				context.stroke();
+			}
+			if (options.drawAcceleration) {
+				context.strokeStyle = options.accelerationStyle || '#FF0000';
+				context.beginPath();
+				stage.forEachInstance(function (instance) {
+					if (instance.isPhysicsEnabled()) {
+						drawVector(context, instance.getPosition(), instance.getAcceleration());
+					}
+				});
+				context.stroke();
+			}
+			if (options.drawSolidMap) {
+				var map = stage.getTileMap();
+				context.fillStyle = options.solidMapStyle || '#FF0000';
+				context.beginPath();
+				map.forEachTile(function (i, j, k) {
+					if (view.intersects(i, j, k, 1, 1, 1)) {
+						if (map.getTile(map.getAt(i, j, k)).isWalkable()) {
+							drawQuadrilateral(context, i, j, k, 1, 1);
+						}
+					}
+				});
+				context.fill();
+			}
+			context.restore();
+		}
+	};
+};
+
 Canvace.RumbleEffect = function (duration, period, amplitude, horizontal, vertical) {
-	period     = (typeof period !== "undefined")     ? (~~period)     : Canvace.RumbleEffect.defaultPeriod;
-	amplitude  = (typeof amplitude !== "undefined")  ? (~~amplitude)  : Canvace.RumbleEffect.defaultAmplitude;
-	horizontal = (typeof horizontal !== "undefined") ? (!!horizontal) : true;
-	vertical   = (typeof vertical !== "undefined")   ? (!!vertical)   : true;
+	period     = (typeof period !== 'undefined')     ? (~~period)     : Canvace.RumbleEffect.defaultPeriod;
+	amplitude  = (typeof amplitude !== 'undefined')  ? (~~amplitude)  : Canvace.RumbleEffect.defaultAmplitude;
+	horizontal = (typeof horizontal !== 'undefined') ? (!!horizontal) : true;
+	vertical   = (typeof vertical !== 'undefined')   ? (!!vertical)   : true;
 
 	/**
 	 * Modifies the canvas's projection matrix so as to simulate a rumble
@@ -5034,6 +5441,7 @@ Canvace.RumbleEffect.defaultPeriod = 3;
  * @final
  */
 Canvace.RumbleEffect.defaultAmplitude = 2;
+
 Canvace.RenderLoop = (function () {
 	var loopType = 'auto';
 	var loopRate = 60;
@@ -5049,8 +5457,8 @@ Canvace.RenderLoop = (function () {
 		var stepInterface = range || stage;
 		var canvas = stage.getCanvas();
 
-		var requestAnimationFrame = Canvace.Polyfill.getPrefixedProperty("requestAnimationFrame");
-		var cancelAnimationFrame = Canvace.Polyfill.getPrefixedProperty("cancelAnimationFrame");
+		var requestAnimationFrame = Canvace.Polyfill.getPrefixedProperty('requestAnimationFrame');
+		var cancelAnimationFrame = Canvace.Polyfill.getPrefixedProperty('cancelAnimationFrame');
 		var token;
 
 		renderer.synchronize(period);
@@ -5091,10 +5499,10 @@ Canvace.RenderLoop = (function () {
 		 * is not currently running.
 		 */
 		this.getActualRate = (function () {
-			var lastTimestamp = Date.now();
+			var lastTimestamp = Canvace.Timing.now();
 			return function () {
 				if (running && !banned) {
-					var currentTimestamp = Date.now();
+					var currentTimestamp = Canvace.Timing.now();
 					var result = counter * 1000 / (currentTimestamp - lastTimestamp);
 					counter = 0;
 					lastTimestamp = currentTimestamp;
@@ -5147,7 +5555,7 @@ Canvace.RenderLoop = (function () {
 
 		function step(dt) {
 			stepInterface.tick(dt);
-			if (typeof userTick === "function") {
+			if (typeof userTick === 'function') {
 				userTick(dt);
 			}
 		}
@@ -5159,7 +5567,7 @@ Canvace.RenderLoop = (function () {
 			}
 			step(delta / 1000.0);
 			stepInterface.update();
-			if (typeof synchronizeView === "function") {
+			if (typeof synchronizeView === 'function') {
 				synchronizeView();
 			}
 
@@ -5172,9 +5580,10 @@ Canvace.RenderLoop = (function () {
 				running = true;
 				banned = false;
 
-				var startTimestamp = Date.now();
+				var startTimestamp = Canvace.Timing.now();
 				var lastTimestamp = startTimestamp;
-				token = requestAnimationFrame(function tick(timestamp) {
+				token = requestAnimationFrame(function tick() {
+					var timestamp = Canvace.Timing.now();
 					var elapsed = (timestamp - startTimestamp);
 					var delta = (timestamp - lastTimestamp);
 					lastTimestamp = timestamp;
@@ -5190,10 +5599,10 @@ Canvace.RenderLoop = (function () {
 				running = true;
 				banned = false;
 
-				var startTimestamp = Date.now();
+				var startTimestamp = Canvace.Timing.now();
 				var lastTimestamp = startTimestamp;
 				token = setInterval(function () {
-					var timestamp = Date.now();
+					var timestamp = Canvace.Timing.now();
 					var elapsed = (timestamp - startTimestamp);
 					var delta = (timestamp - lastTimestamp);
 					lastTimestamp = timestamp;
@@ -5331,12 +5740,12 @@ Canvace.Audio = function () {
 			try {
 				return new Audio();
 			} catch (e) {
-				return document.createElement("audio");
+				return document.createElement('audio');
 			}
 		}());
 	};
 
-	var AudioContext = Canvace.Polyfill.getPrefixedProperty("AudioContext");
+	var AudioContext = Canvace.Polyfill.getPrefixedProperty('AudioContext');
 	var audioElement = createAudioElement();
 
 	/**
@@ -5367,13 +5776,12 @@ Canvace.Audio = function () {
 	 *	var playSound = function (node) {
 	 *		node.play();
 	 *	};
-	 *	
-	 *	if (audio.canPlayType("audio/mp3")) {
-	 *		audio.load("audio/foo.mp3", playSound);
-	 *	} else if (audio.canPlayType("application/ogg")) {
-	 *		audio.load("audio/bar.ogg", playSound);
+	 *	if (audio.canPlayType('audio/mp3')) {
+	 *		audio.load('audio/foo.mp3', playSound);
+	 *	} else if (audio.canPlayType('application/ogg')) {
+	 *		audio.load('audio/bar.ogg', playSound);
 	 *	} else {
-	 *		alert("No suitable audio resource available!");
+	 *		alert('No suitable audio resource available!');
 	 *	}
 	 *
 	 * @method canPlayType
@@ -5381,12 +5789,12 @@ Canvace.Audio = function () {
 	 * @return {Boolean} A boolean result.
 	 */
 	this.canPlayType = function (mimeType) {
-		return (audioElement.canPlayType(mimeType) !== "");
+		return (audioElement.canPlayType(mimeType) !== '');
 	};
 
 	var SourceNode = null;
 
-	if (typeof AudioContext !== "undefined") {
+	if (typeof AudioContext !== 'undefined') {
 		var context = new AudioContext();
 
 		/**
@@ -5428,7 +5836,7 @@ Canvace.Audio = function () {
 					sourceNode.loop = looping;
 					sourceNode.connect(context.destination);
 
-					noteOnAt = Date.now();
+					noteOnAt = Canvace.Timing.now();
 					sourceNode.noteGrainOn(0, position, remaining);
 				}
 				return thisObject;
@@ -5445,7 +5853,7 @@ Canvace.Audio = function () {
 					sourceNode.noteOff(0);
 					sourceNode.disconnect();
 
-					currentTime += Date.now() - noteOnAt;
+					currentTime += Canvace.Timing.now() - noteOnAt;
 				}
 				return thisObject;
 			};
@@ -5493,38 +5901,38 @@ Canvace.Audio = function () {
 				return thisObject;
 			};
 
-			if (typeof source !== "string") {
+			if (typeof source !== 'string') {
 				bufferData = source;
 				return this;
 			}
 
 			var request = new XMLHttpRequest();
-			request.addEventListener("load", function () {
+			request.addEventListener('load', function () {
 				context.decodeAudioData(request.response, function (buffer) {
 					bufferData = buffer;
 					loaded = true;
-					if (typeof onload === "function") {
+					if (typeof onload === 'function') {
 						onload(thisObject);
 					}
 				}, function () {
-					if (typeof onerror === "function") {
+					if (typeof onerror === 'function') {
 						// FIXME: we should pass back something about the error
 						// occurred, not the requested URL that failed loading.
 						onerror(source);
 					}
 				});
 			}, false);
-			request.addEventListener("error", function (e) {
-				if (typeof onerror === "function") {
+			request.addEventListener('error', function (e) {
+				if (typeof onerror === 'function') {
 					onerror(e);
 				}
 			}, false);
-			request.open("GET", source, true);
-			request.responseType = "arraybuffer";
+			request.open('GET', source, true);
+			request.responseType = 'arraybuffer';
 			request.send();
 			return this;
 		};
-	} else if (typeof audioElement !== "undefined") {
+	} else if (typeof audioElement !== 'undefined') {
 		SourceNode = function (source, onload, onerror) {
 			var thisObject = this;
 			var appended = false;
@@ -5560,27 +5968,27 @@ Canvace.Audio = function () {
 				return thisObject;
 			};
 
-			if (typeof source !== "string") {
+			if (typeof source !== 'string') {
 				context = source;
 				loaded = true;
 			} else {
 				context = createAudioElement();
-				context.addEventListener("canplay", function () {
+				context.addEventListener('canplay', function () {
 					loaded = true;
-					if (typeof onload === "function") {
+					if (typeof onload === 'function') {
 						onload(thisObject);
 					}
 				}, false);
-				context.addEventListener("error", function (e) {
-					if (typeof onerror === "function") {
+				context.addEventListener('error', function (e) {
+					if (typeof onerror === 'function') {
 						onerror(e);
 					}
 				}, false);
-				context.setAttribute("src", source);
+				context.setAttribute('src', source);
 				context.load();
 			}
 
-			context.addEventListener("ended", function () {
+			context.addEventListener('ended', function () {
 				if (appended && !context.loop) {
 					document.body.removeChild(context);
 					appended = false;
@@ -5596,6 +6004,7 @@ Canvace.Audio = function () {
 		return clone;
 	};
 };
+
 Canvace.onVisibilityChange = function (callback) {
 	if ('hidden' in document) {
 		document.addEventListener('visibilitychange', function () {
@@ -5619,5 +6028,5 @@ Canvace.onVisibilityChange = function (callback) {
 	return true;
 };
 
-return Canvace;
+	return Canvace;
 }());

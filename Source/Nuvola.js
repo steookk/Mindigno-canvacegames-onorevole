@@ -44,10 +44,10 @@ function Nuvola(instanceFromStage, stage, loader) {
     };
 
     var nuvola = instanceFromStage.getEntity();
-    nuvola.getRealBoundingBox().i0 = nuvolaSize.x;
-    nuvola.getRealBoundingBox().j0 = nuvolaSize.y;
-    nuvola.getRealBoundingBox().iSpan = nuvolaSize.w;
-    nuvola.getRealBoundingBox().jSpan = nuvolaSize.h;
+    nuvola.getBoundingBox().i0 = nuvolaSize.x;
+    nuvola.getBoundingBox().j0 = nuvolaSize.y;
+    nuvola.getBoundingBox().iSpan = nuvolaSize.w;
+    nuvola.getBoundingBox().jSpan = nuvolaSize.h;
     */
 
     //

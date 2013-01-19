@@ -24,116 +24,116 @@ function Cameraman(instanceFromStage, gravity, stage, loader) {
     var cameraman_fermo = stage.getEntity({
         id: Cameraman.keys.id_fermo
     });
-    cameraman_fermo.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_fermo.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_fermo.getRealBoundingBox().iSpan = cameramanSize.w;
-    cameraman_fermo.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_fermo.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_fermo.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_fermo.getBoundingBox().iSpan = cameramanSize.w;
+    cameraman_fermo.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_cammina = stage.getEntity({
         id: Cameraman.keys.id_cammina
     });
-    cameraman_cammina.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_cammina.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_cammina.getRealBoundingBox().iSpan = cameramanSize.w;
-    cameraman_cammina.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_cammina.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_cammina.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_cammina.getBoundingBox().iSpan = cameramanSize.w;
+    cameraman_cammina.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_indietreggia = stage.getEntity({
         id: Cameraman.keys.id_indietreggia
     });
-    cameraman_indietreggia.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_indietreggia.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_indietreggia.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_indietreggia.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_indietreggia.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_indietreggia.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_indietreggia.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_indietreggia.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_minacciato = stage.getEntity({
         id: Cameraman.keys.id_minacciato
     });
-    cameraman_minacciato.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_minacciato.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_minacciato.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_minacciato.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_minacciato.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_minacciato.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_minacciato.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_minacciato.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_pre_colpito = stage.getEntity({
         id: Cameraman.keys.id_pre_colpito
     });
-    cameraman_pre_colpito.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_pre_colpito.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_pre_colpito.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_pre_colpito.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_pre_colpito.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_pre_colpito.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_pre_colpito.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_pre_colpito.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_colpito_pugno = stage.getEntity({
         id: Cameraman.keys.id_colpito_pugno
     });
-    cameraman_colpito_pugno.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_colpito_pugno.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_colpito_pugno.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_colpito_pugno.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_colpito_pugno.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_colpito_pugno.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_colpito_pugno.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_colpito_pugno.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_colpito_calcio = stage.getEntity({
         id: Cameraman.keys.id_colpito_calcio
     });
-    cameraman_colpito_calcio.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_colpito_calcio.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_colpito_calcio.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_colpito_calcio.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_colpito_calcio.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_colpito_calcio.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_colpito_calcio.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_colpito_calcio.getBoundingBox().jSpan = cameramanSize.h;
     //
 
     //
     var cameraman_ferito_fermo = stage.getEntity({
         id: Cameraman.keys.id_ferito_fermo
     });
-    cameraman_ferito_fermo.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_fermo.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_fermo.getRealBoundingBox().iSpan = cameramanSize.w;
-    cameraman_ferito_fermo.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_fermo.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_fermo.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_fermo.getBoundingBox().iSpan = cameramanSize.w;
+    cameraman_ferito_fermo.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_cammina = stage.getEntity({
         id: Cameraman.keys.id_ferito_cammina
     });
-    cameraman_ferito_cammina.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_cammina.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_cammina.getRealBoundingBox().iSpan = cameramanSize.w;
-    cameraman_ferito_cammina.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_cammina.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_cammina.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_cammina.getBoundingBox().iSpan = cameramanSize.w;
+    cameraman_ferito_cammina.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_indietreggia = stage.getEntity({
         id: Cameraman.keys.id_ferito_indietreggia
     });
-    cameraman_ferito_indietreggia.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_indietreggia.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_indietreggia.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_ferito_indietreggia.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_indietreggia.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_indietreggia.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_indietreggia.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_ferito_indietreggia.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_minacciato = stage.getEntity({
         id: Cameraman.keys.id_ferito_minacciato
     });
-    cameraman_ferito_minacciato.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_minacciato.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_minacciato.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_ferito_minacciato.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_minacciato.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_minacciato.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_minacciato.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_ferito_minacciato.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_pre_colpito = stage.getEntity({
         id: Cameraman.keys.id_ferito_pre_colpito
     });
-    cameraman_ferito_pre_colpito.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_pre_colpito.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_pre_colpito.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_ferito_pre_colpito.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_pre_colpito.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_pre_colpito.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_pre_colpito.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_ferito_pre_colpito.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_colpito_pugno = stage.getEntity({
         id: Cameraman.keys.id_ferito_colpito_pugno
     });
-    cameraman_ferito_colpito_pugno.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_colpito_pugno.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_colpito_pugno.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_ferito_colpito_pugno.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_colpito_pugno.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_colpito_pugno.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_colpito_pugno.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_ferito_colpito_pugno.getBoundingBox().jSpan = cameramanSize.h;
 
     var cameraman_ferito_colpito_calcio = stage.getEntity({
         id: Cameraman.keys.id_ferito_colpito_calcio
     });
-    cameraman_ferito_colpito_calcio.getRealBoundingBox().i0 = cameramanSize.x;
-    cameraman_ferito_colpito_calcio.getRealBoundingBox().j0 = cameramanSize.y;
-    cameraman_ferito_colpito_calcio.getRealBoundingBox().iSpan = cameramanSize.w-gap;
-    cameraman_ferito_colpito_calcio.getRealBoundingBox().jSpan = cameramanSize.h;
+    cameraman_ferito_colpito_calcio.getBoundingBox().i0 = cameramanSize.x;
+    cameraman_ferito_colpito_calcio.getBoundingBox().j0 = cameramanSize.y;
+    cameraman_ferito_colpito_calcio.getBoundingBox().iSpan = cameramanSize.w-gap;
+    cameraman_ferito_colpito_calcio.getBoundingBox().jSpan = cameramanSize.h;
     //
 
     var cameramans_fermo = [cameraman_fermo, cameraman_ferito_fermo];
@@ -145,7 +145,6 @@ function Cameraman(instanceFromStage, gravity, stage, loader) {
     var cameramans_colpito_calcio = [cameraman_colpito_calcio, cameraman_ferito_colpito_calcio];
 
     //
-    var tileMap = stage.getTileMap();
     this.update = function(delta, personaggio) {
 
         if (vita <= 0) {
@@ -204,7 +203,7 @@ function Cameraman(instanceFromStage, gravity, stage, loader) {
         personaggio.getInstanceFromStage().collision(instanceFromStage);
 
         //Controllo che collide con qualche elemento solido della tileMap
-        instanceFromStage.tileCollision(tileMap, delta);
+        instanceFromStage.tileCollision();
     };
 
     this.danneggiaSeCollide = function(personaggio) {
@@ -226,8 +225,8 @@ function Cameraman(instanceFromStage, gravity, stage, loader) {
 
         var collide = false;
         var personaggioInstance = personaggio.getInstanceFromStage();
-        var personaggioBox = personaggioInstance.getEntity().getRealBoundingBox();
-        var entityBox = instanceFromStage.getEntity().getRealBoundingBox();
+        var personaggioBox = personaggioInstance.getEntity().getBoundingBox();
+        var entityBox = instanceFromStage.getEntity().getBoundingBox();
         var gapDistanza = 2;
         if (instanceFromStage.getPosition().i + entityBox.i0 + entityBox.iSpan + gapDistanza >= personaggioInstance.getPosition().i + personaggioBox.i0) {
             collide = true;

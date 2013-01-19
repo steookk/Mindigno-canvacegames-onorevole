@@ -24,116 +24,116 @@ function Iena(instanceFromStage, gravity, stage, loader) {
     var iena_ferma = stage.getEntity({
         id: Iena.keys.id_ferma
     });
-    iena_ferma.getRealBoundingBox().i0 = ienaSize.x;
-    iena_ferma.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferma.getRealBoundingBox().iSpan = ienaSize.w;
-    iena_ferma.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferma.getBoundingBox().i0 = ienaSize.x;
+    iena_ferma.getBoundingBox().j0 = ienaSize.y;
+    iena_ferma.getBoundingBox().iSpan = ienaSize.w;
+    iena_ferma.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_cammina = stage.getEntity({
         id: Iena.keys.id_cammina
     });
-    iena_cammina.getRealBoundingBox().i0 = ienaSize.x;
-    iena_cammina.getRealBoundingBox().j0 = ienaSize.y;
-    iena_cammina.getRealBoundingBox().iSpan = ienaSize.w;
-    iena_cammina.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_cammina.getBoundingBox().i0 = ienaSize.x;
+    iena_cammina.getBoundingBox().j0 = ienaSize.y;
+    iena_cammina.getBoundingBox().iSpan = ienaSize.w;
+    iena_cammina.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_indietreggia = stage.getEntity({
         id: Iena.keys.id_indietreggia
     });
-    iena_indietreggia.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_indietreggia.getRealBoundingBox().j0 = ienaSize.y;
-    iena_indietreggia.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_indietreggia.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_indietreggia.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_indietreggia.getBoundingBox().j0 = ienaSize.y;
+    iena_indietreggia.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_indietreggia.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_pre_colpita = stage.getEntity({
         id: Iena.keys.id_pre_colpita
     });
-    iena_pre_colpita.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_pre_colpita.getRealBoundingBox().j0 = ienaSize.y;
-    iena_pre_colpita.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_pre_colpita.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_pre_colpita.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_pre_colpita.getBoundingBox().j0 = ienaSize.y;
+    iena_pre_colpita.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_pre_colpita.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_colpita_pugno = stage.getEntity({
         id: Iena.keys.id_colpita_pugno
     });
-    iena_colpita_pugno.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_colpita_pugno.getRealBoundingBox().j0 = ienaSize.y;
-    iena_colpita_pugno.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_colpita_pugno.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_colpita_pugno.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_colpita_pugno.getBoundingBox().j0 = ienaSize.y;
+    iena_colpita_pugno.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_colpita_pugno.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_colpita_calcio = stage.getEntity({
         id: Iena.keys.id_colpita_calcio
     });
-    iena_colpita_calcio.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_colpita_calcio.getRealBoundingBox().j0 = ienaSize.y;
-    iena_colpita_calcio.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_colpita_calcio.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_colpita_calcio.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_colpita_calcio.getBoundingBox().j0 = ienaSize.y;
+    iena_colpita_calcio.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_colpita_calcio.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_minacciata = stage.getEntity({
         id: Iena.keys.id_minacciata
     });
-    iena_minacciata.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_minacciata.getRealBoundingBox().j0 = ienaSize.y;
-    iena_minacciata.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_minacciata.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_minacciata.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_minacciata.getBoundingBox().j0 = ienaSize.y;
+    iena_minacciata.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_minacciata.getBoundingBox().jSpan = ienaSize.h;
     //
 
     //
     var iena_ferita_ferma = stage.getEntity({
         id: Iena.keys.id_ferita_ferma
     });
-    iena_ferita_ferma.getRealBoundingBox().i0 = ienaSize.x;
-    iena_ferita_ferma.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_ferma.getRealBoundingBox().iSpan = ienaSize.w;
-    iena_ferita_ferma.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_ferma.getBoundingBox().i0 = ienaSize.x;
+    iena_ferita_ferma.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_ferma.getBoundingBox().iSpan = ienaSize.w;
+    iena_ferita_ferma.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_cammina = stage.getEntity({
         id: Iena.keys.id_ferita_cammina
     });
-    iena_ferita_cammina.getRealBoundingBox().i0 = ienaSize.x;
-    iena_ferita_cammina.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_cammina.getRealBoundingBox().iSpan = ienaSize.w;
-    iena_ferita_cammina.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_cammina.getBoundingBox().i0 = ienaSize.x;
+    iena_ferita_cammina.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_cammina.getBoundingBox().iSpan = ienaSize.w;
+    iena_ferita_cammina.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_indietreggia = stage.getEntity({
         id: Iena.keys.id_ferita_indietreggia
     });
-    iena_ferita_indietreggia.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_ferita_indietreggia.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_indietreggia.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_ferita_indietreggia.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_indietreggia.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_ferita_indietreggia.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_indietreggia.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_ferita_indietreggia.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_pre_colpita = stage.getEntity({
         id: Iena.keys.id_ferita_pre_colpita
     });
-    iena_ferita_pre_colpita.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_ferita_pre_colpita.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_pre_colpita.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_ferita_pre_colpita.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_pre_colpita.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_ferita_pre_colpita.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_pre_colpita.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_ferita_pre_colpita.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_colpita_pugno = stage.getEntity({
         id: Iena.keys.id_ferita_colpita_pugno
     });
-    iena_ferita_colpita_pugno.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_ferita_colpita_pugno.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_colpita_pugno.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_ferita_colpita_pugno.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_colpita_pugno.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_ferita_colpita_pugno.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_colpita_pugno.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_ferita_colpita_pugno.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_colpita_calcio = stage.getEntity({
         id: Iena.keys.id_ferita_colpita_calcio
     });
-    iena_ferita_colpita_calcio.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_ferita_colpita_calcio.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_colpita_calcio.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_ferita_colpita_calcio.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_colpita_calcio.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_ferita_colpita_calcio.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_colpita_calcio.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_ferita_colpita_calcio.getBoundingBox().jSpan = ienaSize.h;
 
     var iena_ferita_minacciata = stage.getEntity({
         id: Iena.keys.id_ferita_minacciata
     });
-    iena_ferita_minacciata.getRealBoundingBox().i0 = ienaSize.x+gap;
-    iena_ferita_minacciata.getRealBoundingBox().j0 = ienaSize.y;
-    iena_ferita_minacciata.getRealBoundingBox().iSpan = ienaSize.w-gap;
-    iena_ferita_minacciata.getRealBoundingBox().jSpan = ienaSize.h;
+    iena_ferita_minacciata.getBoundingBox().i0 = ienaSize.x+gap;
+    iena_ferita_minacciata.getBoundingBox().j0 = ienaSize.y;
+    iena_ferita_minacciata.getBoundingBox().iSpan = ienaSize.w-gap;
+    iena_ferita_minacciata.getBoundingBox().jSpan = ienaSize.h;
     //
 
     var iene_ferma = [iena_ferma, iena_ferita_ferma];
@@ -145,7 +145,6 @@ function Iena(instanceFromStage, gravity, stage, loader) {
     var iene_minacciata = [iena_minacciata, iena_ferita_minacciata];
     //
 
-    var tileMap = stage.getTileMap();
     this.update = function(delta, personaggio) {
 
         if (vita <= 0) {
@@ -161,7 +160,7 @@ function Iena(instanceFromStage, gravity, stage, loader) {
             
             //Cammina verso Barbareschi mantenendo una certa distanza
             var personaggioInstance = personaggio.getInstanceFromStage();
-            var personaggioBox = personaggioInstance.getEntity().getRealBoundingBox();
+            var personaggioBox = personaggioInstance.getEntity().getBoundingBox();
 
             if (instanceFromStage.getPosition().i - distanzaDaPersonaggio > personaggioInstance.getPosition().i + personaggioBox.i0 + personaggioBox.iSpan) {
                 instanceFromStage.getPosition().i -= spostamento*delta;
@@ -205,7 +204,7 @@ function Iena(instanceFromStage, gravity, stage, loader) {
         personaggio.getInstanceFromStage().collision(instanceFromStage);
 
         //Controllo che collide con qualche elemento solido della tileMap
-        instanceFromStage.tileCollision(tileMap, delta);
+        instanceFromStage.tileCollision();
     };
 
     this.danneggiaSeCollide = function(personaggio) {
@@ -227,7 +226,7 @@ function Iena(instanceFromStage, gravity, stage, loader) {
 
         var collide = false;
         var personaggioInstance = personaggio.getInstanceFromStage();
-        var personaggioBox = personaggioInstance.getEntity().getRealBoundingBox();
+        var personaggioBox = personaggioInstance.getEntity().getBoundingBox();
         var gapDistanza = 1;
         if (instanceFromStage.getPosition().i < personaggioInstance.getPosition().i + personaggioBox.iSpan + gapDistanza) {
             collide = true;

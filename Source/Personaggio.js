@@ -16,78 +16,78 @@ function Personaggio (instanceFromStage, gravity, stage, loader) {
     var personaggio_fermo_dx = stage.getEntity({
     	id: Personaggio.keys.id_normal_right
     });
-    personaggio_fermo_dx.getRealBoundingBox().i0 = personaggioSize.x;
-    personaggio_fermo_dx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_fermo_dx.getRealBoundingBox().iSpan = personaggioSize.w; 
-    personaggio_fermo_dx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_fermo_dx.getBoundingBox().i0 = personaggioSize.x;
+    personaggio_fermo_dx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_fermo_dx.getBoundingBox().iSpan = personaggioSize.w; 
+    personaggio_fermo_dx.getBoundingBox().jSpan = personaggioSize.h;
 
     var personaggio_fermo_sx = stage.getEntity({
     	id: Personaggio.keys.id_normal_left
     });
-    personaggio_fermo_sx.getRealBoundingBox().i0 = 5.5;
-    personaggio_fermo_sx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_fermo_sx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_fermo_sx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_fermo_sx.getBoundingBox().i0 = 5.5;
+    personaggio_fermo_sx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_fermo_sx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_fermo_sx.getBoundingBox().jSpan = personaggioSize.h;
     //
     
     var personaggio_cammina_dx = stage.getEntity({
     	id: Personaggio.keys.id_cammina_right
     });
-    personaggio_cammina_dx.getRealBoundingBox().i0 = personaggioSize.x;
-    personaggio_cammina_dx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_cammina_dx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_cammina_dx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_cammina_dx.getBoundingBox().i0 = personaggioSize.x;
+    personaggio_cammina_dx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_cammina_dx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_cammina_dx.getBoundingBox().jSpan = personaggioSize.h;
     
     var personaggio_cammina_sx = stage.getEntity({
         id: Personaggio.keys.id_cammina_left
     });
-    personaggio_cammina_sx.getRealBoundingBox().i0 = 5.5;
-    personaggio_cammina_sx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_cammina_sx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_cammina_sx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_cammina_sx.getBoundingBox().i0 = 5.5;
+    personaggio_cammina_sx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_cammina_sx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_cammina_sx.getBoundingBox().jSpan = personaggioSize.h;
     //
 
     var personaggio_attacco_pugno_dx = stage.getEntity({
         id: Personaggio.keys.id_attack_pugno_right
     });
-    personaggio_attacco_pugno_dx.getRealBoundingBox().i0 = personaggioSize.x;
-    personaggio_attacco_pugno_dx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_attacco_pugno_dx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_attacco_pugno_dx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_attacco_pugno_dx.getBoundingBox().i0 = personaggioSize.x;
+    personaggio_attacco_pugno_dx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_attacco_pugno_dx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_attacco_pugno_dx.getBoundingBox().jSpan = personaggioSize.h;
 
     var personaggio_attacco_pugno_sx = stage.getEntity({
         id: Personaggio.keys.id_attack_pugno_left
     });
-    personaggio_attacco_pugno_sx.getRealBoundingBox().i0 = 5.5;
-    personaggio_attacco_pugno_sx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_attacco_pugno_sx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_attacco_pugno_sx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_attacco_pugno_sx.getBoundingBox().i0 = 5.5;
+    personaggio_attacco_pugno_sx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_attacco_pugno_sx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_attacco_pugno_sx.getBoundingBox().jSpan = personaggioSize.h;
     //
 
     var personaggio_attacco_calcio_dx = stage.getEntity({
         id: Personaggio.keys.id_attack_calcio_right
     });
-    personaggio_attacco_calcio_dx.getRealBoundingBox().i0 = personaggioSize.x;
-    personaggio_attacco_calcio_dx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_attacco_calcio_dx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_attacco_calcio_dx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_attacco_calcio_dx.getBoundingBox().i0 = personaggioSize.x;
+    personaggio_attacco_calcio_dx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_attacco_calcio_dx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_attacco_calcio_dx.getBoundingBox().jSpan = personaggioSize.h;
 
     var personaggio_attacco_calcio_sx = stage.getEntity({
         id: Personaggio.keys.id_attack_calcio_left
     });
-    personaggio_attacco_calcio_sx.getRealBoundingBox().i0 = 5.5;
-    personaggio_attacco_calcio_sx.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_attacco_calcio_sx.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_attacco_calcio_sx.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_attacco_calcio_sx.getBoundingBox().i0 = 5.5;
+    personaggio_attacco_calcio_sx.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_attacco_calcio_sx.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_attacco_calcio_sx.getBoundingBox().jSpan = personaggioSize.h;
     //
 
     var personaggio_esulta = stage.getEntity({
         id: Personaggio.keys.id_esulta
     });
-    personaggio_esulta.getRealBoundingBox().i0 = 5.5;
-    personaggio_esulta.getRealBoundingBox().j0 = personaggioSize.y;
-    personaggio_esulta.getRealBoundingBox().iSpan = personaggioSize.w;
-    personaggio_esulta.getRealBoundingBox().jSpan = personaggioSize.h;
+    personaggio_esulta.getBoundingBox().i0 = 5.5;
+    personaggio_esulta.getBoundingBox().j0 = personaggioSize.y;
+    personaggio_esulta.getBoundingBox().iSpan = personaggioSize.w;
+    personaggio_esulta.getBoundingBox().jSpan = personaggioSize.h;
     //
 
     var state = Personaggio.states.fermo_verso_sx;
@@ -165,10 +165,9 @@ function Personaggio (instanceFromStage, gravity, stage, loader) {
         instanceFromStage.getUniformVelocity().i = 0;
     };
 
-    var tileMap = stage.getTileMap();
     this.update = function(delta) {
 
-    	instanceFromStage.tileCollision(tileMap, delta);
+    	instanceFromStage.tileCollision();
     };
 
     this.getInstanceFromStage = function() {
