@@ -238,11 +238,6 @@ function Iena(instanceFromStage, gravity, stage, loader) {
     this.getVita = function() {
         return vita;
     }
-
-    //Per il debug
-    this.drawBoundingBox = function(context) {
-        instanceFromStage.drawBoundingBox(stage.getView(), context)
-    };
 }
 
 Iena.keys = {

@@ -71,11 +71,6 @@ function Nuvola(instanceFromStage, stage, loader) {
             //instanceFromStage = instanceFromStage.replaceWith(pipistrello_sx);
         }
     };
-
-    //Per il debug
-    this.drawBoundingBox = function(context) {
-        instanceFromStage.drawBoundingBox(stage.getView(), context)
-    };
 }
 
 Nuvola.keys = {

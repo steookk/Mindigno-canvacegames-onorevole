@@ -3,9 +3,6 @@ $.getJSON('Barbareschi.json', function (response) {
 
     loader.onComplete(function () {
 
-        //Riga di codice per rimediare al funzionamento su tutti i browser
-        Canvace.RenderLoop.setLoop('interval');
-
         var canvas = $('canvas#canvas').get(0);
         var stage = new Canvace.Stage(response, canvas);
         
@@ -131,15 +128,11 @@ $.getJSON('Barbareschi.json', function (response) {
 
         //
 
-        keyboard.onKeyDown(KeyEvent.DOM_VK_UP, function() {
-        })
-        keyboard.onKeyUp(KeyEvent.DOM_VK_UP, function() {
-        })
+        keyboard.onKeyDown(KeyEvent.DOM_VK_UP);
+        keyboard.onKeyUp(KeyEvent.DOM_VK_UP);
 
-        keyboard.onKeyDown(KeyEvent.DOM_VK_DOWN, function() {
-        })
-        keyboard.onKeyUp(KeyEvent.DOM_VK_DOWN, function() {
-        })
+        keyboard.onKeyDown(KeyEvent.DOM_VK_DOWN);
+        keyboard.onKeyUp(KeyEvent.DOM_VK_DOWN);
 
         //
 
@@ -156,26 +149,12 @@ $.getJSON('Barbareschi.json', function (response) {
         });
   
         //Per visualizzare le bounding box e verificare la collision detection.
-        loop.getRenderer().addEffect({
-            isOver: function() {
-                return false;
-            },
-            postProcess: function(context) {
-
-                /*
-                personaggio.drawBoundingBox(context);
-
-                iena.drawBoundingBox(context);
-                cameraman.drawBoundingBox(context);
-                */
-
-                /*
-                nuvolaGrande.drawBoundingBox(context);
-                nuvolaMedia.drawBoundingBox(context);
-                nuvolaPiccola.drawBoundingBox(context);
-                */
-            }
-        });
+        /*
+        loop.getRenderer().addEffect(new Canvace.DebugEffect(stage, {
+			drawBoundingBoxes: true,
+			drawSolidMap: true
+        }));
+        */
         //
 
         //Lancio l'esecuzione

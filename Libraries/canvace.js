@@ -2434,14 +2434,14 @@ Canvace.View = function (data, canvas) {
 	 * @return {Boolean} TODO
 	 */
 	this.intersects = function (i, j, k, di, dj, dk) {
-		var x0 = mat[0][0] * i + mat[0][1] * j + mat[0][2] * k;
-		var y0 = mat[1][0] * i + mat[1][1] * j + mat[1][2] * k;
-		var x1 = mat[0][0] * (i + di) + mat[0][1] * (j + dj) + mat[0][2] * (k + dk);
-		var y1 = mat[1][0] * (i + di) + mat[1][1] * (j + dj) + mat[1][2] * (k + dk);
-		return (Math.min(x0, x1) < width - x0) &&
-			(Math.max(x0, x1) > -x0) &&
-			(Math.min(y0, y1) < height - y0) &&
-			(Math.max(y0, y1) > -y0);
+		var x1 = mat[0][0] * i + mat[0][1] * j + mat[0][2] * k;
+		var y1 = mat[1][0] * i + mat[1][1] * j + mat[1][2] * k;
+		var x2 = mat[0][0] * (i + di) + mat[0][1] * (j + dj) + mat[0][2] * (k + dk);
+		var y2 = mat[1][0] * (i + di) + mat[1][1] * (j + dj) + mat[1][2] * (k + dk);
+		return (Math.min(x1, x2) < width - x0) &&
+			(Math.max(x1, x2) > -x0) &&
+			(Math.min(y1, y2) < height - y0) &&
+			(Math.max(y1, y2) > -y0);
 	};
 
 	/**
@@ -5330,7 +5330,7 @@ Canvace.DebugEffect = function (stage, options) {
 				context.beginPath();
 				stage.forEachInstance(function (instance) {
 					var position = instance.getPosition();
-					var box = instance.getBoundingBox();
+					var box = instance.getEntity().getBoundingBox();
 					drawQuadrilateral(context, position.i + box.i0, position.j + box.j0, position.k, box.iSpan, box.jSpan);
 				});
 				context.stroke();
@@ -5370,10 +5370,8 @@ Canvace.DebugEffect = function (stage, options) {
 				context.fillStyle = options.solidMapStyle || '#FF0000';
 				context.beginPath();
 				map.forEachTile(function (i, j, k) {
-					if (view.intersects(i, j, k, 1, 1, 1)) {
-						if (map.getTile(map.getAt(i, j, k)).isWalkable()) {
-							drawQuadrilateral(context, i, j, k, 1, 1);
-						}
+					if (view.intersects(i, j, k, 1, 1, 1) && !map.getTile(map.getAt(i, j, k)).isWalkable()) {
+						drawQuadrilateral(context, i, j, k, 1, 1);
 					}
 				});
 				context.fill();

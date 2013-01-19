@@ -182,11 +182,6 @@ function Personaggio (instanceFromStage, gravity, stage, loader) {
         state = Personaggio.states.esulta;
         instanceFromStage = instanceFromStage.replaceWith(personaggio_esulta);
     }
-
-    //Per il debug
-    this.drawBoundingBox = function(context) {
-    	instanceFromStage.drawBoundingBox(stage.getView(), context)
-    };
 }
 
 Personaggio.keys = {
