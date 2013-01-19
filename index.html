@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<title>My First Canvace Game</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 		<script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="Libraries/canvace.js"></script>
 		<style type="text/css">
@@ -16,12 +18,12 @@ html,body {
 		<p></p>
 
 		<div style="display:inline-block;width:804px;height:604px;position:relative;left:0px;top:0px;overflow:hidden">
-			<canvas id="canvas" width="800" height="600" style="border:2px solid black;background:url('Background.png')"></canvas>
+			<canvas id="canvas" width="800" height="600" style="border:2px solid black;background-image:url(Background.png);background-repeat:no-repeat;background-clip:content-box;background-size:cover;"></canvas>
 			<div id="ringraziamenti" style="position:absolute;width:100%;left:0px;top:100%">Sviluppato da Mindigno</div>
-			<div id="menu" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:url('Menu/Layer.png')">
+			<div id="menu" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:url(Menu/Layer.png)">
 				<div style="position:relative;left:0px;top:33%;text-align:center">
 					<div id="batteria" style="display:inline;position:relative;left:0px;top:0px">
-						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url('Menu/Batteria.png') no-repeat">
+						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url(Menu/Batteria.png) no-repeat">
 							<div id="progress" style="position:absolute;left:2px;top:2px;width:0px;height:56px;background:#FDC613;border-radius:3px"></div>
 						</div>
 					</div>
