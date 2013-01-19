@@ -7,27 +7,104 @@
 		<script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="Libraries/canvace.js"></script>
 		<style type="text/css">
-html,body {
+html,
+body {
 	font-family: sans-serif;
 	width: 100%;
 	height: 100%;
 }
+
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	overflow: hidden;
+}
+
+#container {
+	border: 2px solid black;
+	display: inline-block;
+	width: 800px;
+	height: 600px;
+	overflow: hidden;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+
+#canvas {
+	width: 100%;
+	height: 100%;
+
+	background-image: url(Background.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-clip: content-box;
+}
+
+#ringraziamenti {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	top: 100%;
+}
+
+#menu {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background: url(Menu/Layer.png);
+}
+
+#batteria {
+	display: inline;
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+
+#progress {
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 0px;
+	height: 56px;
+	background: #FDC613;
+	border-radius: 3px;
+}
+
+#play {
+	display: none;
+}
+
+#header {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 25.83%;
+
+	background-image: url(Header.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-clip: border-box;
+}
 		</style>
 	</head>
-	<body style="margin:0px;padding:0px;text-align:center;overflow:hidden">
-		<p></p>
-
-		<div id="container" style="display:inline-block;width:800px;height:600px;border:2px solid black;position:relative;left:0px;top:0px;overflow:hidden">
-			<canvas id="canvas" width="800" height="600" style="width:100%;height:100%;background-image:url(Background.png);background-repeat:no-repeat;background-clip:content-box;background-size:cover;"></canvas>
-			<div id="ringraziamenti" style="position:absolute;width:100%;left:0px;top:100%">Sviluppato da Mindigno</div>
-			<div id="menu" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:url(Menu/Layer.png)">
+	<body>
+		<div id="container">
+			<canvas id="canvas" width="800" height="600"></canvas>
+			<div id="ringraziamenti">Sviluppato da Mindigno</div>
+			<div id="menu">
 				<div style="position:relative;left:0px;top:33%;text-align:center">
-					<div id="batteria" style="display:inline;position:relative;left:0px;top:0px">
+					<div id="batteria">
 						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url(Menu/Batteria.png) no-repeat">
-							<div id="progress" style="position:absolute;left:2px;top:2px;width:0px;height:56px;background:#FDC613;border-radius:3px"></div>
+							<div id="progress"></div>
 						</div>
 					</div>
-					<img id="play" src="Menu/Play.png" alt="Gioca!" style="display:none"/>
+					<img id="play" src="Menu/Play.png" alt="Gioca!" />
 				</div>
 				<div style="position:absolute;width:100%;left:-50px;bottom:0px;margin:50px;text-align:center">
 					<table style="width:100%;color:white;padding-left:150px;padding-right:150px">
@@ -44,9 +121,7 @@ html,body {
 					</table>
 				</div>
 			</div>
-			<div style="position:absolute;left:0px;top:0px">
-				<img src="Header.png" alt="mindigno.com"/>
-			</div>
+			<div id="header"></div>
 		</div>
 
 		<script type="text/javascript" src="Source/Nuvola.js"></script>
@@ -56,3 +131,4 @@ html,body {
 		<script type="text/javascript" src="Source/Game.js"></script>
 	</body>
 </html>
+	
