@@ -303,7 +303,7 @@ $(function () {
         
         //Definisco le chiavi per richiamare i suoni.
         loader.loadAssets(response, {
-            "Intro:": ["Sounds/Intro.ogg", "Sounds/Intro.mp3"],
+            "Intro": ["Sounds/Intro.ogg", "Sounds/Intro.mp3"],
             "RaggiungiamoInSicilia": ["Sounds/Iena/RaggiungiamoInSicilia.ogg", "Sounds/Iena/RaggiungiamoInSicilia.mp3"],
             "Fine": ["Sounds/Fine.ogg", "Sounds/Fine.mp3"],
 
