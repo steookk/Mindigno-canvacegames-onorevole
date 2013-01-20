@@ -8,8 +8,8 @@ $(function () {
                 window.innerHeight / initialHeight);
 
             container.css({
-                width: ~~(ratio * initialWidth),
-                height: ~~(ratio * initialHeight)
+                width: Math.floor(ratio * initialWidth) - 4,
+                height: Math.floor(ratio * initialHeight) - 4
             });
         };
     })(800, 600);
@@ -17,7 +17,6 @@ $(function () {
     if (Canvace.mobileBrowser) {
         window.addEventListener('resize', adaptCanvasSize, false);
         window.addEventListener('orientationchange', adaptCanvasSize, false);
-
         adaptCanvasSize();
     } else {
         $('#controls').show();
