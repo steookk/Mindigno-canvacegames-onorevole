@@ -52,10 +52,10 @@ body {
 }
 
 #batteria {
-	display: inline;
-	position: relative;
-	left: 0px;
-	top: 0px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -30px 0px 0px -157.5px;
 }
 
 #controls {
@@ -79,14 +79,18 @@ body {
 }
 
 #play {
-	display: none;
-	background: url(../Menu/Play.png);
+	background: url(../Menu/Play.png) no-repeat transparent;
+	background-position: 0px 0px;
 	width: 180px;
 	height: 185px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -92.5px 0px 0px -90px;
 }
 
 #play:hover {
-	background-image: url(../Menu/Play-Hover.png);
+	background-position: -180px 0px;
 }
 
 #header {
