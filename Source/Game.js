@@ -302,9 +302,17 @@ $(function () {
                 loader.playSound("RaggiungiamoInSicilia");
             });
 
-            $('#batteria').hide();
-            $('#play').css('display', 'inline-block');
+            setTimeout(function() {
+                $('#batteria').hide();
+            }, 250);
+
+            setTimeout(function() {
+                $('#play').css('display', 'inline-block');
+            }, 1500);
+            
         });
+
+        
         
         //Definisco le chiavi per richiamare i suoni.
         loader.loadAssets(response, {
