@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>My First Canvace Game</title>
+		<title>Teppistello</title>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
 		<script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="Libraries/canvace.js"></script>
-		<style type="text/css">
-html,body {
-	font-family: sans-serif;
-	width: 100%;
-	height: 100%;
-}
-		</style>
-	</head>
-	<body style="margin:0px;padding:0px;text-align:center;overflow:hidden">
-		<p></p>
 
-		<div style="display:inline-block;width:804px;height:604px;position:relative;left:0px;top:0px;overflow:hidden">
-			<canvas id="canvas" width="800" height="600" style="border:2px solid black;background:url('Background.png')"></canvas>
-			<div id="ringraziamenti" style="position:absolute;width:100%;left:0px;top:100%">Sviluppato da Mindigno</div>
-			<div id="menu" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:url('Menu/Layer.png')">
+		<link rel="stylesheet" type="text/css" href="Style/screen.css" />
+	</head>
+	<body>
+		<div id="container">
+			<canvas id="canvas" width="800" height="600"></canvas>
+			<div id="ringraziamenti">Sviluppato da Mindigno</div>
+			<div id="menu">
 				<div style="position:relative;left:0px;top:33%;text-align:center">
-					<div id="batteria" style="display:inline;position:relative;left:0px;top:0px">
-						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url('Menu/Batteria.png') no-repeat">
-							<div id="progress" style="position:absolute;left:2px;top:2px;width:0px;height:56px;background:#FDC613;border-radius:3px"></div>
+					<div id="batteria">
+						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url(Menu/Batteria.png) no-repeat">
+							<div id="progress"></div>
 						</div>
 					</div>
-					<img id="play" src="Menu/Play.png" alt="Gioca!" style="display:none"/>
+					<img id="play" src="Menu/Play.png" alt="Gioca!" />
 				</div>
-				<div style="position:absolute;width:100%;left:-50px;bottom:0px;margin:50px;text-align:center">
+				<div id="controls">
 					<table style="width:100%;color:white;padding-left:150px;padding-right:150px">
 						<tr>
 							<td>
 								<p>Colpisci</p>
-								<img src="Menu/Spazio.png" alt="barra spaziatrice"/>
+								<img src="Menu/Spazio.png" alt="barra spaziatrice" />
 							</td>
 							<td>
 								<p>Spostati</p>
-								<img src="Menu/Frecce.png" alt="tasti freccia"/>
+								<img src="Menu/Frecce.png" alt="tasti freccia" />
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<div style="position:absolute;left:0px;top:0px">
-				<img src="Header.png" alt="mindigno.com"/>
-			</div>
+			<div id="header"></div>
 		</div>
 
 		<script type="text/javascript" src="Source/Nuvola.js"></script>
