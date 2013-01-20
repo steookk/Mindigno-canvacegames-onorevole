@@ -152,22 +152,23 @@ $(function () {
                 };
             })();
 
+            var leftGauge = $('#energy-bars div.gauge:first-child');
+            var rightGauge = $('#energy-bars div.gauge:last-child');
             var checkLife = function() {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
 
-				$('#energy-bars .left .gauge').css('width', Math.round(vitaCameraman) + '%');
-				$('#energy-bars .right .gauge').css('width', Math.round(vitaIena) + '%');
+				leftGauge.css('backgroundSize', ~~(vitaCameraman) + '% 100%');
+				rightGauge.css('backgroundSize', ~~(vitaIena) + '% 100%');
 
                 var ienaMorta = vitaIena <= 0;
                 var cameramanMorto = vitaCameraman <= 0;
 
-                //TODO
                 if (cameramanMorto) {
-                    $('#energy-bars .left .gauge').hide();
+                    leftGauge.hide();
                 }
                 if (ienaMorta) {
-                    $('#energy-bars .right .gauge').hide();
+                    rightGauge.hide();
                 }
 
                 if (ienaMorta && cameramanMorto && !giocoFinito) {
@@ -308,9 +309,8 @@ $(function () {
 
                 giocoIniziato = true;
 
-                //TODO
-                $('#energy-bars .left .gauge').show();
-                $('#energy-bars .right .gauge').show();
+                leftGauge.show();
+                rightGauge.show();
 
                 $('#menu').hide();
 
