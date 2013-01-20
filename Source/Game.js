@@ -19,6 +19,8 @@ $(function () {
         window.addEventListener('orientationchange', adaptCanvasSize, false);
 
         adaptCanvasSize();
+    } else {
+        $('#controls').show();
     }
 
     (function (ignored) {

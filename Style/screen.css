@@ -59,6 +59,16 @@ body {
 	top: 0px;
 }
 
+#controls {
+	display: none;
+	position: absolute;
+	width: 100%;
+	left: -50px;
+	bottom: 0px;
+	margin: 50px;
+	text-align: center;
+}
+
 #progress {
 	position: absolute;
 	left: 2px;
