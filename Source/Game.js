@@ -289,8 +289,7 @@ $(function () {
                 }
             });
 
-            $('#play').on('click', function() {
-
+            $('#play').click(function() {
                 mixpanel.track("Premuto play");
 
                 giocoIniziato = true;
@@ -303,7 +302,8 @@ $(function () {
                 loader.playSound("RaggiungiamoInSicilia");
             });
 
-            $('#batteria,#play').toggle();
+            $('#batteria').hide();
+            $('#play').css('display', 'inline-block');
         });
         
         //Definisco le chiavi per richiamare i suoni.
