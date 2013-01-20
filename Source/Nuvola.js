@@ -72,6 +72,10 @@ function Nuvola(instanceFromStage, stage, loader) {
         }
     };
 
+    this.getInstanceFromStage = function() {
+        return instanceFromStage;
+    };
+
     //Per il debug
     this.drawBoundingBox = function(context) {
         instanceFromStage.drawBoundingBox(stage.getView(), context)

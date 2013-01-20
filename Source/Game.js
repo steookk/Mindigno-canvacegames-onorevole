@@ -86,6 +86,18 @@ $(function () {
             });
             var nuvolaPiccola = new Nuvola(nuvolaInstance_p, stage, loader);
 
+            var nuvole;
+            if (!Canvace.mobileBrowser) {
+                nuvolaGrande.getInstanceFromStage().remove();
+                nuvolaMedia.getInstanceFromStage().remove();
+                nuvolaPiccola.getInstanceFromStage().remove();
+
+                nuvole = [];
+
+            } else {
+                nuvole = [nuvolaGrande, nuvolaMedia, nuvolaPiccola];
+            }
+            
             ///
 
             var keyboard = new Canvace.Keyboard(window);
@@ -266,9 +278,9 @@ $(function () {
                 iena.update(delta, personaggio);
                 cameraman.update(delta, personaggio);
 
-                nuvolaGrande.update(delta);
-                nuvolaMedia.update(delta);
-                nuvolaPiccola.update(delta);
+                for (var i = 0; i < nuvole.length; i++) {
+                    nuvole[i].update(delta);
+                };
             });
 
             /*
@@ -284,9 +296,9 @@ $(function () {
                     iena.drawBoundingBox(context);
                     cameraman.drawBoundingBox(context);
 
-                    nuvolaGrande.drawBoundingBox(context);
-                    nuvolaMedia.drawBoundingBox(context);
-                    nuvolaPiccola.drawBoundingBox(context);
+                    for (var i = 0; i < nuvole.length; i++) {
+                        nuvole[i].drawBoundingBox(context);
+                    };
                 }
             });
             */
