@@ -87,7 +87,7 @@ $(function () {
             var nuvolaPiccola = new Nuvola(nuvolaInstance_p, stage, loader);
 
             var nuvole;
-            if (!Canvace.mobileBrowser) {
+            if (Canvace.mobileBrowser) {
                 nuvolaGrande.getInstanceFromStage().remove();
                 nuvolaMedia.getInstanceFromStage().remove();
                 nuvolaPiccola.getInstanceFromStage().remove();
