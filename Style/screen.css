@@ -1,4 +1,4 @@
-html,body {
+html, body {
 	font-family: sans-serif;
 	width: 100%;
 	height: 100%;
@@ -7,9 +7,15 @@ html,body {
 	margin: 0px;
 }
 
+html {
+	display: table;
+}
+
 body {
-	text-align: center;
+	display: table-cell;
 	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
 }
 
 #container {
@@ -22,7 +28,7 @@ body {
 	left: 0px;
 	top: 0px;
 	padding: 0px;
-	margin: 0px;
+	margin: auto;
 }
 
 #canvas {
