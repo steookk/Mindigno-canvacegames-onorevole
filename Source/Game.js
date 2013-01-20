@@ -309,10 +309,8 @@ $(function () {
 
                 giocoIniziato = true;
 
-                leftGauge.show();
-                rightGauge.show();
-
                 $('#menu').hide();
+                $('#energy-bars').show();
 
                 //Lancio l'esecuzione
                 loop.run();
