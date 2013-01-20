@@ -38,6 +38,7 @@ $(function () {
 
             loader.onComplete(function () {
 
+            mixpanel.track("Finito di caricare il gioco");
             loader.playSound("Intro");
 
             //Riga di codice per rimediare al funzionamento su tutti i browser
@@ -157,6 +158,8 @@ $(function () {
 
                 if (vitaIena <= 0 && vitaCameraman <= 0 && !giocoFinito) {
 
+                    mixpanel.track("Gioco finito");
+
                     loader.playSound("Fine");
                     personaggio.vincita();
 
@@ -254,6 +257,7 @@ $(function () {
                 nuvolaPiccola.update(delta);
             });
 
+            /*
             //Per visualizzare le bounding box e verificare la collision detection.
             loop.getRenderer().addEffect({
                 isOver: function() {
@@ -261,20 +265,17 @@ $(function () {
                 },
                 postProcess: function(context) {
 
-                    /*
                     personaggio.drawBoundingBox(context);
 
                     iena.drawBoundingBox(context);
                     cameraman.drawBoundingBox(context);
-                    */
 
-                    /*
                     nuvolaGrande.drawBoundingBox(context);
                     nuvolaMedia.drawBoundingBox(context);
                     nuvolaPiccola.drawBoundingBox(context);
-                    */
                 }
             });
+            */
             //
 
             //Non funziona su alcuni browser come Safari.
@@ -289,15 +290,17 @@ $(function () {
             });
 
             $('#play').on('click', function() {
+
+                mixpanel.track("Premuto play");
+
                 giocoIniziato = true;
 
                 $('#menu').hide();
 
                 //Lancio l'esecuzione
                 loop.run();
-
                 //Avvio la riproduzione del suono di inizio.
-                loader.playSound("RaggiungiamoInSicilia");
+                loader.playSound("Intro_game");
             });
 
             $('#batteria,#play').toggle();
@@ -306,7 +309,7 @@ $(function () {
         //Definisco le chiavi per richiamare i suoni.
         loader.loadAssets(response, {
             "Intro": ["Sounds/Intro.ogg", "Sounds/Intro.mp3"],
-            "RaggiungiamoInSicilia": ["Sounds/Iena/RaggiungiamoInSicilia.ogg", "Sounds/Iena/RaggiungiamoInSicilia.mp3"],
+            "Intro_game": ["Sounds/Intro_game.ogg", "Sounds/Intro_game.mp3"],
             "Fine": ["Sounds/Fine.ogg", "Sounds/Fine.mp3"],
 
             "Cazzotto": ["Sounds/Effetti/Cazzotto.ogg", "Sounds/Effetti/Cazzotto.mp3"],
