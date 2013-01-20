@@ -156,6 +156,9 @@ $(function () {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
 
+				$('#energy-bars .left .gauge').css('width', Math.round(vitaCameraman) + '%');
+				$('#energy-bars .right .gauge').css('width', Math.round(vitaIena) + '%');
+
                 if (vitaIena <= 0 && vitaCameraman <= 0 && !giocoFinito) {
 
                     mixpanel.track("Gioco finito");
