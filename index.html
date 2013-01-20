@@ -1,60 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>My First Canvace Game</title>
-        <script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="Libraries/canvace.js"></script>
-        <style type="text/css">
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
+	<head>
+		<title>My First Canvace Game</title>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        html {
-            display: table;
-        }
+		<script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="Libraries/canvace.js"></script>
 
-        body {
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-        }
+		<link rel="stylesheet" type="text/css" href="Style/screen.css" />
+	</head>
+	<body>
+		<div id="container">
+			<canvas id="canvas" width="800" height="600"></canvas>
+			<div id="ringraziamenti">Sviluppato da Mindigno</div>
+			<div id="menu">
+				<div style="position:relative;left:0px;top:33%;text-align:center">
+					<div id="batteria">
+						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url(Menu/Batteria.png) no-repeat">
+							<div id="progress"></div>
+						</div>
+					</div>
+					<img id="play" src="Menu/Play.png" alt="Gioca!" />
+				</div>
+				<div style="position:absolute;width:100%;left:-50px;bottom:0px;margin:50px;text-align:center">
+					<table style="width:100%;color:white;padding-left:150px;padding-right:150px">
+						<tr>
+							<td>
+								<p>Colpisci</p>
+								<img src="Menu/Spazio.png" alt="barra spaziatrice"/>
+							</td>
+							<td>
+								<p>Spostati</p>
+								<img src="Menu/Frecce.png" alt="tasti freccia"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="header"></div>
+		</div>
 
-        #container {
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-
-        #container > * {
-            display: block;
-            margin: auto;
-        }
-
-        #container > canvas {
-            border: 2px solid black;
-            background: url('Background.png');
-        }
-
-        #container > div {
-            position: absolute;
-            width: 100%;
-            left: 0px;
-            top: 100%;
-        }
-        </style>
-    </head>
-    <body>
-
-        <div id="container">
-            <canvas id="canvas" width="800" height="600"></canvas>
-            <div id="ringraziamenti">Sviluppato da Mindigno</div>
-        </div>
-
-        <script type="text/javascript" src="Source/Nuvola.js"></script>
-        <script type="text/javascript" src="Source/Iena.js"></script>
-        <script type="text/javascript" src="Source/Cameraman.js"></script>
-        <script type="text/javascript" src="Source/Personaggio.js"></script>
-        <script type="text/javascript" src="Source/Game.js"></script>
-    </body>
+		<script type="text/javascript" src="Source/Nuvola.js"></script>
+		<script type="text/javascript" src="Source/Iena.js"></script>
+		<script type="text/javascript" src="Source/Cameraman.js"></script>
+		<script type="text/javascript" src="Source/Personaggio.js"></script>
+		<script type="text/javascript" src="Source/Game.js"></script>
+	</body>
 </html>
+	
