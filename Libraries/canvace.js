@@ -5578,6 +5578,9 @@ Canvace.Audio = function () {
 						onerror(e);
 					}
 				}, false);
+				context.addEventListener('stalled', function () {
+					context.load();
+				}, false);
 				context.setAttribute("src", source);
 				context.load();
 			}
