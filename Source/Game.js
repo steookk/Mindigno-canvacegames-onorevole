@@ -288,7 +288,7 @@ $(function () {
                 }
             });
 
-            $('#play').on('click', function() {
+            $('#play').click(function() {
                 giocoIniziato = true;
 
                 $('#menu').hide();
@@ -300,7 +300,8 @@ $(function () {
                 loader.playSound("RaggiungiamoInSicilia");
             });
 
-            $('#batteria,#play').toggle();
+            $('#batteria').hide();
+            $('#play').css('display', 'inline-block');
         });
         
         //Definisco le chiavi per richiamare i suoni.
