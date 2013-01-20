@@ -81,8 +81,8 @@ body {
 #play {
 	display: none;
 	background: url(../Menu/Play.png);
-	width: 90px;
-	height: 92px;
+	width: 180px;
+	height: 185px;
 }
 
 #play:hover {
