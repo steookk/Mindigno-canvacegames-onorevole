@@ -311,8 +311,6 @@ $(function () {
             }, 1500);
             
         });
-
-        
         
         //Definisco le chiavi per richiamare i suoni.
         loader.loadAssets(response, {
