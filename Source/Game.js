@@ -159,7 +159,18 @@ $(function () {
 				$('#energy-bars .left .gauge').css('width', Math.round(vitaCameraman) + '%');
 				$('#energy-bars .right .gauge').css('width', Math.round(vitaIena) + '%');
 
-                if (vitaIena <= 0 && vitaCameraman <= 0 && !giocoFinito) {
+                var ienaMorta = vitaIena <= 0;
+                var cameramanMorto = vitaCameraman <= 0;
+
+                //TODO
+                if (cameramanMorto) {
+                    $('#energy-bars .left .gauge').hide();
+                }
+                if (ienaMorta) {
+                    $('#energy-bars .right .gauge').hide();
+                }
+
+                if (ienaMorta && cameramanMorto && !giocoFinito) {
 
                     mixpanel.track("Gioco finito");
 
@@ -297,6 +308,10 @@ $(function () {
 
                 giocoIniziato = true;
 
+                //TODO
+                $('#energy-bars .left .gauge').show();
+                $('#energy-bars .right .gauge').show();
+
                 $('#menu').hide();
 
                 //Lancio l'esecuzione
@@ -339,6 +354,6 @@ $(function () {
         });
 
         var frasiBarbareschi = ["Cretino", "Cretino_2", "Imbecille", "Imbecille_2", "Fascistello", "Teppistello", "Vergogna"];
-        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette", "Perche_mi_mena", "Fregato_il_cellulare"];
+        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette", "Fregato_il_cellulare", "Perche_mi_mena"];
     });
 });
