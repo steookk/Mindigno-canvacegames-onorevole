@@ -38,6 +38,7 @@ $(function () {
 
             loader.onComplete(function () {
 
+            mixpanel.track("Finito di caricare il gioco");
             loader.playSound("Intro");
 
             //Riga di codice per rimediare al funzionamento su tutti i browser
@@ -157,6 +158,8 @@ $(function () {
 
                 if (vitaIena <= 0 && vitaCameraman <= 0 && !giocoFinito) {
 
+                    mixpanel.track("Gioco finito");
+
                     loader.playSound("Fine");
                     personaggio.vincita();
 
@@ -254,6 +257,7 @@ $(function () {
                 nuvolaPiccola.update(delta);
             });
 
+            /*
             //Per visualizzare le bounding box e verificare la collision detection.
             loop.getRenderer().addEffect({
                 isOver: function() {
@@ -261,20 +265,17 @@ $(function () {
                 },
                 postProcess: function(context) {
 
-                    /*
                     personaggio.drawBoundingBox(context);
 
                     iena.drawBoundingBox(context);
                     cameraman.drawBoundingBox(context);
-                    */
 
-                    /*
                     nuvolaGrande.drawBoundingBox(context);
                     nuvolaMedia.drawBoundingBox(context);
                     nuvolaPiccola.drawBoundingBox(context);
-                    */
                 }
             });
+            */
             //
 
             //Non funziona su alcuni browser come Safari.
@@ -289,20 +290,29 @@ $(function () {
             });
 
             $('#play').click(function() {
+                mixpanel.track("Premuto play");
+
                 giocoIniziato = true;
 
                 $('#menu').hide();
 
                 //Lancio l'esecuzione
                 loop.run();
-
                 //Avvio la riproduzione del suono di inizio.
                 loader.playSound("RaggiungiamoInSicilia");
             });
 
-            $('#batteria').hide();
-            $('#play').css('display', 'inline-block');
+            setTimeout(function() {
+                $('#batteria').hide();
+            }, 250);
+
+            setTimeout(function() {
+                $('#play').css('display', 'inline-block');
+            }, 1500);
+            
         });
+
+        
         
         //Definisco le chiavi per richiamare i suoni.
         loader.loadAssets(response, {
