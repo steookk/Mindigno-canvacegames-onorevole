@@ -172,8 +172,8 @@ $(function () {
 				leftGauge.css('backgroundSize', ~~(vitaCameraman) + '% 100%');
 				rightGauge.css('backgroundSize', ~~(vitaIena) + '% 100%');
 
-                var ienaMorta = vitaIena <= 0;
-                var cameramanMorto = vitaCameraman <= 0;
+                var ienaMorta = (vitaIena <= 0);
+                var cameramanMorto = (vitaCameraman <= 0);
 
                 if (cameramanMorto) {
                     leftGauge.hide();
@@ -183,19 +183,21 @@ $(function () {
                 }
 
                 if (ienaMorta && cameramanMorto && !giocoFinito) {
-
-                    mixpanel.track("Gioco finito");
-
-                    loader.playSound("Fine");
-                    personaggio.vincita();
-
-                    var element = $('#ringraziamenti');
-                    element.animate({
-                        top: (element.parent().height() - element.height()) / 2
-                    });
-
-                    giocoFinito = true;
+                    winGame();
                 }
+            };
+
+            var winGame = function () {
+                mixpanel.track("Gioco finito");
+
+                giocoFinito = true;
+                personaggio.vincita();
+                $('#win-screen').css('display', 'table');
+
+                loader.playSound("Fine");
+                setTimeout(function () {
+                    loader.playSound("Fregato_il_cellulare");
+                }, 2000);
             };
 
             keyboard.onKeyDown(KeyEvent.DOM_VK_SPACE, attack);

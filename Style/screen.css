@@ -46,22 +46,58 @@ body {
 	background-clip: content-box;
 }
 
-#ringraziamenti {
-	position: absolute;
-	width: 100%;
-	left: 0px;
-	top: 100%;
-}
-
-#menu {
+#menu, #win-screen {
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	width: 100%;
 	height: 100%;
+}
+
+#menu {
 	background-image: url(../Menu/Inizio.png), url(../Menu/Layer.png);
 	background-repeat: no-repeat, repeat;
 	background-position: 50% 25%, 50% 50%;
+}
+
+#win-screen {
+	background-image: url(../Menu/Layer.png);
+	background-repeat: repeat;
+	background-position: 50% 50%;
+
+	border: 0px;
+	padding: 0px;
+
+	display: none;
+}
+
+#win-screen div {
+	display: table-cell;
+	min-height: 100%;
+	vertical-align: middle;
+	margin: auto;
+}
+
+#win-screen img {
+	width: 44%;
+	height: 48%;
+}
+
+#win-screen blockquote {
+	font-size: 1.25em;
+	margin: 0px;
+}
+
+#win-screen blockquote + p {
+	font-weight: normal;
+	font-size: 0.85em;
+	margin: 0px;
+}
+
+#win-screen #mindigno, #win-screen #canvace {
+	position: absolute;
+	bottom: 0px;
+	margin: 0px;
 }
 
 #batteria {
@@ -149,10 +185,12 @@ body {
 	background-clip: content-box;
 }
 
+#win-screen #mindigno,
 #energy-bars div.gauge:first-child {
 	left: 1.25%;
 }
 
+#win-screen #canvace,
 #energy-bars div.gauge:last-child {
 	right: 1.25%;
 }
