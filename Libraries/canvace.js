@@ -5565,10 +5565,12 @@ Canvace.Audio = function () {
 				loaded = true;
 			} else {
 				context = createAudioElement();
-				context.addEventListener("canplay", function () {
-					loaded = true;
-					if (typeof onload === "function") {
-						onload(thisObject);
+				context.addEventListener('canplaythrough', function () {
+					if (!loaded) {
+						loaded = true;
+						if (typeof onload === 'function') {
+							onload(thisObject);
+						}
 					}
 				}, false);
 				context.addEventListener("error", function (e) {
