@@ -130,11 +130,13 @@ body {
 #touch-areas .center {
 	width: 60%;
 	background: url(../Menu/TouchCenter.png);
+	vertical-align: bottom;
 }
 
 #touch-areas .left,
 #touch-areas .right {
 	background: url(../Menu/TouchSide.png);
+	vertical-align: middle;
 }
 
 #progress {
