@@ -163,8 +163,8 @@ $(function () {
                 };
             })();
 
-            var leftGauge = $('#energy-bars div.gauge:first-child');
-            var rightGauge = $('#energy-bars div.gauge:last-child');
+            var leftGauge = $('#energy-bars div.left.gauge');
+            var rightGauge = $('#energy-bars div.right.gauge');
             var checkLife = function() {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
