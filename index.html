@@ -37,6 +37,13 @@ if (!DEBUG) {
 				<div class="gauge"></div>
 			</div>
 			<div id="menu">
+				<table id="touch-areas">
+					<tr>
+						<td class="left"><img src="Menu/MobileLeft.png" alt="sinistra"/></td>
+						<td class="center"><img src="Menu/MobileAttack.png" alt="picchia"/></td>
+						<td class="right"><img src="Menu/MobileRight.png" alt="destra"/></td>
+					</tr>
+				</table>
 				<div id="batteria">
 					<div style="display: inline-block; position: relative; left: 0px; top: 0px; width: 313px; height: 60px; background: url(Menu/Batteria.png) no-repeat;">
 						<div id="progress"></div>
@@ -73,6 +80,16 @@ if (!DEBUG) {
 			</div>
 			<div id="header"></div>
 		</div>
+
+		<script type="text/javascript">
+$(function () {
+	if (Canvace.mobileBrowser) {
+		$('#touch-areas').show();
+	} else {
+		$('#controls').show();
+	}
+});
+		</script>
 
 		<script type="text/javascript" src="Source/Nuvola.js"></script>
 		<script type="text/javascript" src="Source/Iena.js"></script>
