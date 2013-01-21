@@ -74,10 +74,16 @@ if (!DEBUG) {
 					<img src="Menu/Fine.png" alt="Hai vinto!" />
 					<blockquote>
 						Pensi che le cose non possano cambiare?<br />
-						Anche tu puoi fare la differenza. Indignati!
+						Anche tu puoi fare la differenza. <button id="indignati">Indignati!</button>
 					</blockquote>
+					<script type="text/javascript">
+$(function () {
+	$('#indignati').click(function () {
+		window.location = 'http://www.mindigno.com/microposts/50f2b629c0e33e0002000141';
+	});
+});
+					</script>
 				</div>
-
 				<p id="mindigno">Sviluppato da mindigno.com</p>
 				<p id="canvace">Powered by Canvace</p>
 			</div>

@@ -92,12 +92,13 @@ body {
 	height: 48%;
 }
 
-#win-screen blockquote {
+#win-screen blockquote,
+#win-screen blockquote button {
 	font-size: 1.25em;
 	margin: 0px;
 }
 
-#win-screen blockquote + p {
+#win-screen blockquote+p {
 	font-weight: normal;
 	font-size: 0.85em;
 	margin: 0px;
@@ -222,4 +223,21 @@ body {
 #win-screen #canvace,
 #energy-bars div.right.gauge {
 	right: 1.25%;
+}
+
+#indignati {
+	cursor: pointer;
+	background-color: #F89406;
+	background-size: contain;
+	background-repeat: repeat-x;
+	background-image: url(../ButtonGradient.png);
+	color: white;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+	border: 1px solid black;
+	border-radius: 6px;
+	padding: 0.3em 0.8em;
+}
+
+#indignati:hover {
+	background: #F89406;
 }
