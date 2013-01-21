@@ -184,13 +184,6 @@ body {
 	background-clip: content-box;
 }
 
-.gauge {
-	border-radius: 2px;
-	background-color: #FD6113;
-	width: 100%;
-	height: 100%;
-}
-
 #energy-bars {
 	display: none;
 	position: relative;
