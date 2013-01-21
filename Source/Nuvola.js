@@ -71,6 +71,10 @@ function Nuvola(instanceFromStage, stage, loader) {
             //instanceFromStage = instanceFromStage.replaceWith(pipistrello_sx);
         }
     };
+
+    this.getInstanceFromStage = function() {
+        return instanceFromStage;
+    };
 }
 
 Nuvola.keys = {

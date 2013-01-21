@@ -1,41 +1,74 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>My First Canvace Game</title>
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Barbareschi VS Iene</title>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<script type="text/javascript" src="Libraries/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="Libraries/canvace.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="Style/screen.css" />
+
+		<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
+
 	</head>
 	<body>
+
+		<script type="text/javascript">
+
+			//Se true, non vengono inviati i messaggi delle statistiche
+			var DEBUG = true;
+
+			if (!DEBUG) {
+				mixpanel.track("Caricata la pagina");
+			}
+			
+		</script>
+
 		<div id="container">
 			<canvas id="canvas" width="800" height="600"></canvas>
-			<div id="ringraziamenti">Sviluppato da Mindigno</div>
+			<div id="energy-bars">
+				<div class="gauge"></div>
+				<div class="gauge"></div>
+			</div>
 			<div id="menu">
-				<div style="position:relative;left:0px;top:33%;text-align:center">
-					<div id="batteria">
-						<div style="display:inline-block;position:relative;left:0px;top:0px;width:313px;height:60px;background:url(Menu/Batteria.png) no-repeat">
-							<div id="progress"></div>
-						</div>
+				<div id="batteria">
+					<div style="display: inline-block; position: relative; left: 0px; top: 0px; width: 313px; height: 60px; background: url(Menu/Batteria.png) no-repeat;">
+						<div id="progress"></div>
 					</div>
-					<img id="play" src="Menu/Play.png" alt="Gioca!" />
 				</div>
-				<div style="position:absolute;width:100%;left:-50px;bottom:0px;margin:50px;text-align:center">
+				<span id="play"></span>
+				<div id="controls">
 					<table style="width:100%;color:white;padding-left:150px;padding-right:150px">
 						<tr>
 							<td>
 								<p>Colpisci</p>
-								<img src="Menu/Spazio.png" alt="barra spaziatrice"/>
+								<img src="Menu/Spazio.png" alt="barra spaziatrice" />
 							</td>
 							<td>
 								<p>Spostati</p>
-								<img src="Menu/Frecce.png" alt="tasti freccia"/>
+								<img src="Menu/Frecce.png" alt="tasti freccia" />
 							</td>
 						</tr>
 					</table>
 				</div>
+			</div>
+			<div id="win-screen">
+				<div>
+					<img src="Menu/Fine.png" alt="Hai vinto!" />
+					<blockquote>
+						&ldquo;Mi spiace... ma io so' io e voi non siete un c***o!&rdquo;
+					</blockquote>
+					<p>Alberto Sordi ne <i>&ldquo;Il Marchese del Grillo&rdquo;</i></p>
+				</div>
+
+				<p id="mindigno">Sviluppato da mindigno.com</p>
+				<p id="canvace">Powered by Canvace</p>
 			</div>
 			<div id="header"></div>
 		</div>
@@ -47,4 +80,3 @@
 		<script type="text/javascript" src="Source/Game.js"></script>
 	</body>
 </html>
-	
