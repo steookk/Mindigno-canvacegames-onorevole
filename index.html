@@ -23,9 +23,10 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 
 //Se true, non vengono inviati i messaggi delle statistiche
 var DEBUG = true;
+var version = 1.0;
 
 if (!DEBUG) {
-	mixpanel.track("Caricata la pagina");
+	mixpanel.track("Caricata la pagina", {"version": version});
 }
 
 		</script>
