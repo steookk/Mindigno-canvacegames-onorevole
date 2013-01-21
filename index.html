@@ -36,14 +36,14 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 				<div class="gauge"></div>
 				<div class="gauge"></div>
 			</div>
-			<table id="touch-areas">
-				<tr>
-					<td class="left"></td>
-					<td class="center"></td>
-					<td class="right"></td>
-				</tr>
-			</table>
 			<div id="menu">
+				<table id="touch-areas">
+					<tr>
+						<td class="left"></td>
+						<td class="center"></td>
+						<td class="right"></td>
+					</tr>
+				</table>
 				<div id="batteria">
 					<div style="display: inline-block; position: relative; left: 0px; top: 0px; width: 313px; height: 60px; background: url(Menu/Batteria.png) no-repeat;">
 						<div id="progress"></div>
@@ -80,6 +80,16 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 			</div>
 			<div id="header"></div>
 		</div>
+
+		<script type="text/javascript">
+$(function () {
+	if (!Canvace.mobileBrowser) {
+		$('#touch-areas').show();
+	} else {
+		$('#controls').show();
+	}
+});
+		</script>
 
 		<script type="text/javascript" src="Source/Nuvola.js"></script>
 		<script type="text/javascript" src="Source/Iena.js"></script>

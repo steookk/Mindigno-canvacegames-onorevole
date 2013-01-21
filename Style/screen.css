@@ -117,6 +117,26 @@ body {
 	text-align: center;
 }
 
+#touch-areas {
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+#touch-areas .center {
+	width: 60%;
+	background: url(../Menu/TouchCenter.png);
+}
+
+#touch-areas .left,
+#touch-areas .right {
+	background: url(../Menu/TouchSide.png);
+}
+
 #progress {
 	position: absolute;
 	left: 2px;
@@ -195,18 +215,4 @@ body {
 #win-screen #canvace,
 #energy-bars div.gauge:last-child {
 	right: 1.25%;
-}
-
-#touch-areas {
-	display: none;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	border-collapse: collapse;
-}
-
-#touch-areas .center {
-	width: 50%;
 }
