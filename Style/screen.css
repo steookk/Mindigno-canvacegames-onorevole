@@ -64,6 +64,11 @@ body {
 	top: 15%;
 }
 
+#logo img {
+	width: 44%;
+	height: 47.83%;
+}
+
 #win-screen {
 	background-image: url(../Menu/Layer.png);
 	background-repeat: repeat;
