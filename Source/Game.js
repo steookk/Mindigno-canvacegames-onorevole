@@ -36,7 +36,7 @@ $(function () {
             loader.onComplete(function () {
 
             if (!DEBUG) {
-                mixpanel.track("Finito di caricare il gioco");
+                mixpanel.track("Finito di caricare il gioco", {"version": version});
             }
             loader.playSound("Intro");
 
@@ -191,7 +191,7 @@ $(function () {
 
             var winGame = function () {
                 if (!DEBUG) {
-                    mixpanel.track("Gioco finito");
+                    mixpanel.track("Gioco finito", {"version": version});
                 }
 
                 giocoFinito = true;
@@ -323,7 +323,7 @@ $(function () {
 
             $('#play').click(function() {
                 if (!DEBUG) {
-                    mixpanel.track("Premuto play");
+                    mixpanel.track("Premuto play", {"version": version});
                 }
 
                 giocoIniziato = true;
