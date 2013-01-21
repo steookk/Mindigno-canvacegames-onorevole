@@ -55,9 +55,13 @@ body {
 }
 
 #menu {
-	background-image: url(../Menu/Inizio.png), url(../Menu/Layer.png);
-	background-repeat: no-repeat, repeat;
-	background-position: 50% 25%, 50% 50%;
+	background-image: url(../Menu/Layer.png);
+}
+
+#logo {
+	position: relative;
+	left: 0px;
+	top: 15%;
 }
 
 #win-screen {
