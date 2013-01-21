@@ -144,7 +144,7 @@ $(function () {
                             counterSoundBarbareschi++;
                         }
 
-                        if (counter%15 == 5 && iena.getVita() > 15) {
+                        if (counter%15 == 5 && iena.getVita() > 10) {
 
                             counterSoundIena = counterSoundIena%(frasiIena .length);
                             loader.playSound(frasiIena[counterSoundIena]);
@@ -371,6 +371,6 @@ $(function () {
         });
 
         var frasiBarbareschi = ["Cretino", "Cretino_2", "Imbecille", "Imbecille_2", "Fascistello", "Teppistello", "Vergogna"];
-        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette", "Fregato_il_cellulare", "Perche_mi_mena"];
+        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette"];
     });
 });

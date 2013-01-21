@@ -6,7 +6,7 @@ function Iena(instanceFromStage, gravity, stage, loader) {
     instanceFromStage.getAcceleration().j = gravity;
 
     var vita = 100;
-    var danno = 1.5;
+    var danno = 3;
 
     var velocity = 18;
     var spostamento = velocity * 1;
