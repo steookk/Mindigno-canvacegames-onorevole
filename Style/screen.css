@@ -131,6 +131,7 @@ body {
 	width: 60%;
 	background: url(../Menu/TouchCenter.png);
 	vertical-align: bottom;
+	padding-bottom: 1.5em;
 }
 
 #touch-areas .left,
