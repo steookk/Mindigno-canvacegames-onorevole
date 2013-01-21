@@ -37,7 +37,9 @@ $(function () {
 
             loader.onComplete(function () {
 
-            mixpanel.track("Finito di caricare il gioco");
+            if (!DEBUG) {
+                mixpanel.track("Finito di caricare il gioco");
+            }
             loader.playSound("Intro");
 
             //Riga di codice per rimediare al funzionamento su tutti i browser
@@ -188,7 +190,9 @@ $(function () {
             };
 
             var winGame = function () {
-                mixpanel.track("Gioco finito");
+                if (!DEBUG) {
+                    mixpanel.track("Gioco finito");
+                }
 
                 giocoFinito = true;
                 personaggio.vincita();
@@ -318,7 +322,9 @@ $(function () {
             });
 
             $('#play').click(function() {
-                mixpanel.track("Premuto play");
+                if (!DEBUG) {
+                    mixpanel.track("Premuto play");
+                }
 
                 giocoIniziato = true;
 

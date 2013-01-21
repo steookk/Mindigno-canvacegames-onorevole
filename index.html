@@ -20,7 +20,14 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 	<body>
 
 		<script type="text/javascript">
-			mixpanel.track("Caricata la pagina");
+
+			//Se true, non vengono inviati i messaggi delle statistiche
+			var DEBUG = true;
+
+			if (!DEBUG) {
+				mixpanel.track("Caricata la pagina");
+			}
+			
 		</script>
 
 		<div id="container">
