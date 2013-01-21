@@ -153,12 +153,13 @@ body {
 	display: none;
 	background: url(../Menu/Play.png) no-repeat transparent;
 	background-position: 0px 0px;
-	width: 180px;
-	height: 185px;
+	background-size: 200% 100%;
+	width: 22.5%;
+	height: 30.83%;
 	position: absolute;
 	left: 50%;
 	top: 60%;
-	margin: -92.5px 0px 0px -90px;
+	margin: -15.41% 0px 0px -11.25%;
 }
 
 #play:hover {
