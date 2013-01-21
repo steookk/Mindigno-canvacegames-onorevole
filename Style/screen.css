@@ -196,3 +196,17 @@ body {
 #energy-bars div.gauge:last-child {
 	right: 1.25%;
 }
+
+#touch-areas {
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+#touch-areas .center {
+	width: 50%;
+}
