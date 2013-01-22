@@ -55,9 +55,18 @@ body {
 }
 
 #menu {
-	background-image: url(../Menu/Inizio.png), url(../Menu/Layer.png);
-	background-repeat: no-repeat, repeat;
-	background-position: 50% 25%, 50% 50%;
+	background-image: url(../Menu/Layer.png);
+}
+
+#logo {
+	position: relative;
+	left: 0px;
+	top: 15%;
+}
+
+#logo img {
+	width: 44%;
+	height: 47.83%;
 }
 
 #win-screen {
@@ -83,12 +92,13 @@ body {
 	height: 48%;
 }
 
-#win-screen blockquote {
+#win-screen blockquote,
+#win-screen blockquote button {
 	font-size: 1.25em;
 	margin: 0px;
 }
 
-#win-screen blockquote + p {
+#win-screen blockquote+p {
 	font-weight: normal;
 	font-size: 0.85em;
 	margin: 0px;
@@ -117,6 +127,29 @@ body {
 	text-align: center;
 }
 
+#touch-areas {
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+#touch-areas .center {
+	width: 60%;
+	background: url(../Menu/TouchCenter.png);
+	vertical-align: bottom;
+	padding-bottom: 1.5em;
+}
+
+#touch-areas .left,
+#touch-areas .right {
+	background: url(../Menu/TouchSide.png);
+	vertical-align: middle;
+}
+
 #progress {
 	position: absolute;
 	left: 2px;
@@ -131,12 +164,13 @@ body {
 	display: none;
 	background: url(../Menu/Play.png) no-repeat transparent;
 	background-position: 0px 0px;
-	width: 180px;
-	height: 185px;
+	background-size: 200% 100%;
+	width: 22.5%;
+	height: 30.83%;
 	position: absolute;
 	left: 50%;
 	top: 60%;
-	margin: -92.5px 0px 0px -90px;
+	margin: -15.41% 0px 0px -11.25%;
 }
 
 #play:hover {
@@ -156,19 +190,13 @@ body {
 	background-clip: content-box;
 }
 
-.gauge {
-	border-radius: 2px;
-	background-color: #FD6113;
-	width: 100%;
-	height: 100%;
-}
-
 #energy-bars {
 	display: none;
-	position: relative;
+	position: absolute;
 	left: 0px;
-	bottom: 1.25%;
+	bottom: 0.7%;
 	width: 100%;
+	height: 3.17%;
 }
 
 #energy-bars div.gauge {
@@ -177,8 +205,8 @@ body {
 	display: inline-block;
 	border-radius: 4px;
 	border: 2px solid white;
-	width: 150px;
-	height: 19px;
+	width: 18.75%;
+	height: 100%;
 
 	background-color: transparent;
 	background-image: url(../Menu/Gauge.svg);
@@ -188,11 +216,31 @@ body {
 }
 
 #win-screen #mindigno,
-#energy-bars div.gauge:first-child {
+#energy-bars div.left.gauge {
 	left: 1.25%;
 }
 
 #win-screen #canvace,
-#energy-bars div.gauge:last-child {
+#energy-bars div.right.gauge {
 	right: 1.25%;
+}
+
+#indignati {
+	cursor: pointer;
+	background-color: #F89406;
+	background-size: contain;
+	background-repeat: repeat-x;
+	background-image: url(../ButtonGradient.png);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	border-radius: 6px;
+	box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.5) 0px 1px 2px 0px;
+	box-sizing: border;
+	color: white;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+	padding: 0.3em 0.8em;
+}
+
+#indignati:hover {
+	background: #F89406;
 }

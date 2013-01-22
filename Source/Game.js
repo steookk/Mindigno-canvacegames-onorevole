@@ -36,6 +36,9 @@ $(function () {
 
             loader.onComplete(function () {
 
+            if (!DEBUG) {
+                mixpanel.track("Finito di caricare il gioco", {"version": version});
+            }
             loader.playSound("Intro");
 
             var stage = new Canvace.Stage(response, canvas);
@@ -81,6 +84,20 @@ $(function () {
             });
             var nuvolaPiccola = new Nuvola(nuvolaInstance_p, stage, loader);
 
+            var nuvole;
+            //if (Canvace.mobileBrowser) {
+            if (false) {
+                //Facciamo in modo che non vengano mai rimosse. Almeno per ora.
+                nuvolaGrande.getInstanceFromStage().remove();
+                nuvolaMedia.getInstanceFromStage().remove();
+                nuvolaPiccola.getInstanceFromStage().remove();
+
+                nuvole = [];
+
+            } else {
+                nuvole = [nuvolaGrande, nuvolaMedia, nuvolaPiccola];
+            }
+            
             ///
 
             var keyboard = new Canvace.Keyboard(window);
@@ -124,7 +141,7 @@ $(function () {
                             counterSoundBarbareschi++;
                         }
 
-                        if (counter%15 == 5 && iena.getVita() > 15) {
+                        if (counter%15 == 5 && iena.getVita() > 10) {
 
                             counterSoundIena = counterSoundIena%(frasiIena .length);
                             loader.playSound(frasiIena[counterSoundIena]);
@@ -145,6 +162,8 @@ $(function () {
                 };
             })();
 
+            var leftGauge = $('#energy-bars div.left.gauge');
+            var rightGauge = $('#energy-bars div.right.gauge');
             var checkLife = function() {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
@@ -159,7 +178,9 @@ $(function () {
                         top: (element.parent().height() - element.height()) / 2
                     });
 
-                    giocoFinito = true;
+            var winGame = function () {
+                if (!DEBUG) {
+                    mixpanel.track("Gioco finito", {"version": version});
                 }
             };
 
@@ -260,7 +281,13 @@ $(function () {
                 }
             });
 
-            $('#play').on('click', function() {
+            $('#play').click(function() {
+                if (!DEBUG) {
+                    mixpanel.track("Premuto play", {"version": version});
+                }
+
+                giocoIniziato = true;
+
                 $('#menu').hide();
 
                 //Lancio l'esecuzione
@@ -297,6 +324,6 @@ $(function () {
         });
 
         var frasiBarbareschi = ["Cretino", "Cretino_2", "Imbecille", "Imbecille_2", "Fascistello", "Teppistello", "Vergogna"];
-        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette", "Perche_mi_mena", "Fregato_il_cellulare"];
+        var frasiIena = ["100per100delle_assenze", "Perche_mi_mena", "Assente_al_parlamento", "Perche_non_si_dimette"];
     });
 });

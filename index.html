@@ -21,22 +21,33 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 
 		<script type="text/javascript">
 
-			//Se true, non vengono inviati i messaggi delle statistiche
-			var DEBUG = true;
+//Se true, non vengono inviati i messaggi delle statistiche
+var DEBUG = true;
+var version = 1.1;
 
-			if (!DEBUG) {
-				mixpanel.track("Caricata la pagina");
-			}
-			
+if (!DEBUG) {
+	mixpanel.track("Caricata la pagina", {"version": version});
+}
+
 		</script>
 
 		<div id="container">
 			<canvas id="canvas" width="800" height="600"></canvas>
 			<div id="energy-bars">
-				<div class="gauge"></div>
-				<div class="gauge"></div>
+				<div class="left gauge"></div>
+				<div class="right gauge"></div>
 			</div>
 			<div id="menu">
+				<table id="touch-areas">
+					<tr>
+						<td class="left"><img src="Menu/MobileLeft.png" alt="sinistra"/></td>
+						<td class="center"><img src="Menu/MobileAttack.png" alt="picchia"/></td>
+						<td class="right"><img src="Menu/MobileRight.png" alt="destra"/></td>
+					</tr>
+				</table>
+				<div id="logo">
+					<img src="Menu/Inizio.png" alt=""/>
+				</div>
 				<div id="batteria">
 					<div style="display: inline-block; position: relative; left: 0px; top: 0px; width: 313px; height: 60px; background: url(Menu/Batteria.png) no-repeat;">
 						<div id="progress"></div>
@@ -57,21 +68,41 @@ mixpanel.init("6bbb7f2ca4e68edb54b484635d738398");</script><!-- end Mixpanel -->
 						</tr>
 					</table>
 				</div>
+				<div style="position: absolute; bottom: 0px; padding: 0px; margin: 0px; width: 100%; text-align: center;">Se vuoi farti due risate attiva l'audio</div>
 			</div>
 			<div id="win-screen">
 				<div>
 					<img src="Menu/Fine.png" alt="Hai vinto!" />
 					<blockquote>
-						&ldquo;Mi spiace... ma io so' io e voi non siete un c***o!&rdquo;
+						Pensi che le cose non possano cambiare?<br />
+						Anche tu puoi fare la differenza. <button id="indignati">Indignati!</button>
 					</blockquote>
-					<p>Alberto Sordi ne <i>&ldquo;Il Marchese del Grillo&rdquo;</i></p>
+					<script type="text/javascript">
+$(function () {
+	$('#indignati').click(function () {
+		window.top.location = 'http://www.mindigno.com/microposts/50f2b629c0e33e0002000141';
+		if (!DEBUG) {
+			mixpanel.track("Cliccato bottone Indignati", {"version": version});
+		}
+	});
+});
+					</script>
 				</div>
-
 				<p id="mindigno">Sviluppato da mindigno.com</p>
 				<p id="canvace">Powered by Canvace</p>
 			</div>
 			<div id="header"></div>
 		</div>
+
+		<script type="text/javascript">
+$(function () {
+	if (Canvace.mobileBrowser) {
+		$('#touch-areas').show();
+	} else {
+		$('#controls').show();
+	}
+});
+		</script>
 
 		<script type="text/javascript" src="Source/Nuvola.js"></script>
 		<script type="text/javascript" src="Source/Iena.js"></script>

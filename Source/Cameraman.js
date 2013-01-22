@@ -6,7 +6,7 @@ function Cameraman(instanceFromStage, gravity, stage, loader) {
     instanceFromStage.getAcceleration().j = gravity;
 
     var vita = 100;
-    var danno = 2.5;
+    var danno = 4;
 
     var velocity = 10;
     var spostamento = velocity * 1;
