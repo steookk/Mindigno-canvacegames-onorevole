@@ -168,20 +168,37 @@ $(function () {
                 var vitaIena = iena.getVita();
                 var vitaCameraman = cameraman.getVita();
 
-                if (vitaIena <= 0 && vitaCameraman <= 0 && !giocoFinito) {
+                leftGauge.css('backgroundSize', ~~(vitaCameraman) + '% 100%');
+                rightGauge.css('backgroundSize', ~~(vitaIena) + '% 100%');
 
-                    loader.playSound("Fine");
-                    personaggio.vincita();
+                var ienaMorta = (vitaIena <= 0);
+                var cameramanMorto = (vitaCameraman <= 0);
 
-                    var element = $('#ringraziamenti');
-                    element.animate({
-                        top: (element.parent().height() - element.height()) / 2
-                    });
+                if (cameramanMorto) {
+                    leftGauge.hide();
+                }
+                if (ienaMorta) {
+                    rightGauge.hide();
+                }
+
+                if (ienaMorta && cameramanMorto && !giocoFinito) {
+                    winGame();
+                }
+            };
 
             var winGame = function () {
                 if (!DEBUG) {
                     mixpanel.track("Gioco finito", {"version": version});
                 }
+
+                giocoFinito = true;
+                personaggio.vincita();
+                $('#win-screen').css('display', 'table');
+
+                loader.playSound("Fine");
+                setTimeout(function () {
+                    loader.playSound("Fregato_il_cellulare");
+                }, 2000);
             };
 
             keyboard.onKeyDown(KeyEvent.DOM_VK_SPACE, attack);
