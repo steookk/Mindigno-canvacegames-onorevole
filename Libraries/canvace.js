@@ -1,4 +1,4 @@
-/*! Canvace Client Library - v0.2.5 - 2013-01-19
+/*! Canvace Client Library - v0.2.5 - 2013-01-24
 * http://www.canvace.com/
 * Copyright (c) 2013 Canvace Srl */
 
@@ -1889,8 +1889,10 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	var soundsLoaded = false;
 	var soundsProgress = 0.0;
 
+	var divisor = 2.0;
+
 	var updateProgress = function () {
-		loadProgress((imagesProgress + soundsProgress) / 2.0);
+		loadProgress((imagesProgress + soundsProgress) / divisor);
 	};
 
 	var loadFinished = function () {
@@ -2105,12 +2107,14 @@ Canvace.Loader = function (basePath, onLoadProgress, onLoadComplete, onLoadError
 	 * playing the specified MIME type.
 	 */
 	this.loadAssets = function (imagesData, soundsData) {
-		imagesLoaded = (typeof imagesData === 'undefined' || typeof imagesData === 'null');
-		soundsLoaded = (typeof soundsData === 'undefined' || typeof soundsData === 'null');
+		imagesLoaded = (typeof imagesData === 'undefined' || imagesData === null);
+		soundsLoaded = (typeof soundsData === 'undefined' || soundsData === null);
 
 		if (imagesLoaded && soundsLoaded) {
 			loadFinished();
 			return;
+		} else if (imagesLoaded ^ soundsLoaded) {
+			divisor = 1.0;
 		}
 
 		if (!imagesLoaded) {
@@ -4013,6 +4017,16 @@ Canvace.Stage = function (data, canvas) {
 		 */
 		this.getEntity = function () {
 			return entities[instance.id] || new Entity(instance.id);
+		};
+
+		/**
+		 * Indicates whether physics is enabled for this instance's entity.
+		 *
+		 * @method isPhysicsEnabled
+		 * @return {Boolean} `true` if physics is enabled, `false` otherwise.
+		 */
+		this.isPhysicsEnabled = function () {
+			return entity.enablePhysics;
 		};
 
 		/**
@@ -5971,17 +5985,35 @@ Canvace.Audio = function () {
 				loaded = true;
 			} else {
 				context = createAudioElement();
-				context.addEventListener('canplay', function () {
-					loaded = true;
-					if (typeof onload === 'function') {
-						onload(thisObject);
-					}
-				}, false);
+
+				(function () {
+					var setLoadCallback = function (eventName) {
+						var _onload = function () {
+							context.removeEventListener(eventName, _onload, false);
+
+							if (!loaded) {
+								loaded = true;
+
+								if (typeof onload === 'function') {
+									onload(thisObject);
+								}
+							}
+						};
+
+						context.addEventListener(eventName, _onload, false);
+					};
+
+					setLoadCallback('canplay');
+					setLoadCallback('canplaythrough');
+				})();
+
 				context.addEventListener('error', function (e) {
 					if (typeof onerror === 'function') {
 						onerror(e);
 					}
 				}, false);
+
+				context.setAttribute('preload', 'auto');
 				context.setAttribute('src', source);
 				context.load();
 			}
